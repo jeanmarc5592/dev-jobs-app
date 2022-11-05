@@ -1,5 +1,5 @@
 <template>
   <main>
-    <h2>Hello from JobsView</h2>
+    <h2>Hello From JobDetailsView</h2>
   </main>
 </template>
