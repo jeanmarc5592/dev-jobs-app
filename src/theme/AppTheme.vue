@@ -14,6 +14,21 @@ export default {
   computed: {
     themeOverrides() {
       return {
+        common: {
+          // PRIMARY
+          primaryColor: "#5964E0",
+          primaryColorHover: "#939BF4",
+          primaryColorPressed: "#5964E0",
+          // INFO
+          infoColor: "#EEEEFC",
+          infoColorHover: "#C5C7F4",
+          infoColorPressed: "#EEEEFC",
+        },
+        Button: {
+          textColorInfo: "#5964E0",
+          textColorHoverInfo: "#5964E0",
+          textColorPressedInfo: "#5964E0",
+        },
         Typography: {
           // HEADLINES
           headerFontSize1: "28px",
