@@ -7,18 +7,26 @@
 <script>
 import { NConfigProvider } from "naive-ui";
 
-/**
- * Use this for type hints under js file
- * @type import('naive-ui').GlobalThemeOverrides
- */
-
 export default {
   components: {
     NConfigProvider,
   },
   computed: {
     themeOverrides() {
-      return {};
+      return {
+        Typography: {
+          // HEADLINES
+          headerFontSize1: "28px",
+          headerFontSize2: "24px",
+          headerFontSize3: "20px",
+          headerFontSize4: "14px",
+          headerTextColor: "#19202D",
+          // PARAGRAPHS
+          pFontSize: "16px",
+          pLineHeight: "26px",
+          pTextColor: "#19202D",
+        },
+      };
     },
   },
 };
