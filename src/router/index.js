@@ -7,14 +7,17 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      name: "home",
       redirect: "/jobs",
     },
     {
       path: "/jobs",
+      name: "jobs",
       component: JobsView,
     },
     {
       path: "/jobs/:jobId",
+      name: "job-details",
       component: JobDetailsView,
     },
   ],
