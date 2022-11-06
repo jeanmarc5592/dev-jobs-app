@@ -23,6 +23,7 @@
       <n-switch />
       <BaseMoonIcon />
     </n-space>
+    <n-checkbox> Full Time Only </n-checkbox>
   </main>
 </template>
 
@@ -37,6 +38,7 @@ import {
   NInput,
   NSwitch,
   NSpace,
+  NCheckbox,
 } from "naive-ui";
 import BaseSearchIcon from "../common/components/BaseSearchIcon.vue";
 import BaseLocationIcon from "../common/components/BaseLocationIcon.vue";
@@ -54,6 +56,7 @@ export default {
     NInput,
     NSwitch,
     NSpace,
+    NCheckbox,
     BaseSearchIcon,
     BaseLocationIcon,
     BaseSunIcon,

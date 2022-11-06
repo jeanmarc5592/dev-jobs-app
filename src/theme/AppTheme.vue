@@ -57,6 +57,9 @@ export default {
           buttonColor: "#5964E0",
           boxShadowFocus: "none",
         },
+        Checkbox: {
+          textColor: "#19202D",
+        },
       };
     },
     darkThemeOverrides() {
