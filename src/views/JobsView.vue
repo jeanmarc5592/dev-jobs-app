@@ -18,13 +18,30 @@
         <BaseLocationIcon />
       </template>
     </n-input>
+    <n-space>
+      <BaseSunIcon />
+      <n-switch />
+      <BaseMoonIcon />
+    </n-space>
   </main>
 </template>
 
 <script>
-import { NP, NH1, NH2, NH3, NH4, NButton, NInput } from "naive-ui";
+import {
+  NP,
+  NH1,
+  NH2,
+  NH3,
+  NH4,
+  NButton,
+  NInput,
+  NSwitch,
+  NSpace,
+} from "naive-ui";
 import BaseSearchIcon from "../common/components/BaseSearchIcon.vue";
 import BaseLocationIcon from "../common/components/BaseLocationIcon.vue";
+import BaseSunIcon from "../common/components/BaseSunIcon.vue";
+import BaseMoonIcon from "../common/components/BaseMoonIcon.vue";
 
 export default {
   components: {
@@ -35,8 +52,12 @@ export default {
     NH4,
     NButton,
     NInput,
+    NSwitch,
+    NSpace,
     BaseSearchIcon,
     BaseLocationIcon,
+    BaseSunIcon,
+    BaseMoonIcon,
   },
 };
 </script>

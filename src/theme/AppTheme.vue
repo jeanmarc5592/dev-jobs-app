@@ -51,6 +51,12 @@ export default {
           heightMedium: "55px",
           textColor: "#19202D",
         },
+        Switch: {
+          railColor: "#FFF",
+          railColorActive: "#FFF",
+          buttonColor: "#5964E0",
+          boxShadowFocus: "none",
+        },
       };
     },
     darkThemeOverrides() {
