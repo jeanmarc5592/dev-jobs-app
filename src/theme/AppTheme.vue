@@ -31,9 +31,15 @@ export default {
           infoColorPressed: "#EEEEFC",
         },
         Button: {
+          colorFocusPrimary: "#5964E0",
+          borderFocusPrimary: "1px solid transparent",
+          // INFO
           textColorInfo: "#5964E0",
           textColorHoverInfo: "#5964E0",
           textColorPressedInfo: "#5964E0",
+          textColorFocusInfo: "#5964E0",
+          colorFocusInfo: "#EEEEFC",
+          borderFocusInfo: "1px solid transparent",
         },
         Typography: {
           // HEADLINES
