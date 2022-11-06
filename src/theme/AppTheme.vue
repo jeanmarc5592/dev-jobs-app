@@ -1,5 +1,8 @@
 <template>
-  <n-config-provider :theme-overrides="themeOverrides">
+  <n-config-provider
+    :theme="theme"
+    :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides"
+  >
     <slot></slot>
   </n-config-provider>
 </template>
@@ -12,7 +15,10 @@ export default {
     NConfigProvider,
   },
   computed: {
-    themeOverrides() {
+    theme() {
+      return null;
+    },
+    lightThemeOverrides() {
       return {
         common: {
           // PRIMARY
@@ -42,6 +48,9 @@ export default {
           pTextColor: "#19202D",
         },
       };
+    },
+    darkThemeOverrides() {
+      return {};
     },
   },
 };
