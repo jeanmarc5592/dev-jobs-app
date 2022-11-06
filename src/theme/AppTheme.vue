@@ -47,6 +47,10 @@ export default {
           pLineHeight: "26px",
           pTextColor: "#19202D",
         },
+        Input: {
+          heightMedium: "55px",
+          textColor: "#19202D",
+        },
       };
     },
     darkThemeOverrides() {

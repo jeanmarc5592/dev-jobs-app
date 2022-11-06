@@ -8,11 +8,23 @@
     <n-p>Body</n-p>
     <n-button strong type="primary">Button 1</n-button>
     <n-button strong type="info">Button 2</n-button>
+    <n-input type="text" placeholder="Filter by title, companies, expertise...">
+      <template #prefix>
+        <BaseSearchIcon />
+      </template>
+    </n-input>
+    <n-input type="text" placeholder="Filter by location...">
+      <template #prefix>
+        <BaseLocationIcon />
+      </template>
+    </n-input>
   </main>
 </template>
 
 <script>
-import { NP, NH1, NH2, NH3, NH4, NButton } from "naive-ui";
+import { NP, NH1, NH2, NH3, NH4, NButton, NInput } from "naive-ui";
+import BaseSearchIcon from "../common/components/BaseSearchIcon.vue";
+import BaseLocationIcon from "../common/components/BaseLocationIcon.vue";
 
 export default {
   components: {
@@ -22,6 +34,9 @@ export default {
     NH3,
     NH4,
     NButton,
+    NInput,
+    BaseSearchIcon,
+    BaseLocationIcon,
   },
 };
 </script>
