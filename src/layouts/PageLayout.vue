@@ -1,13 +1,11 @@
 <template>
-  <div class="page-container">
-    <TheHeader />
-    <main class="main-container">
-      <slot></slot>
-    </main>
-    <footer>
-      <slot name="footer"></slot>
-    </footer>
-  </div>
+  <TheHeader />
+  <main class="main-container">
+    <slot></slot>
+  </main>
+  <footer>
+    <slot name="footer"></slot>
+  </footer>
 </template>
 
 <script>
@@ -21,13 +19,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page-container {
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
 .main-container {
-  max-width: 1110px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 </style>
