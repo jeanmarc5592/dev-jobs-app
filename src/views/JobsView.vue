@@ -43,6 +43,23 @@ import BaseSearchIcon from "../common/components/BaseSearchIcon.vue";
 import BaseLocationIcon from "../common/components/BaseLocationIcon.vue";
 import BaseSunIcon from "../common/components/BaseSunIcon.vue";
 import BaseMoonIcon from "../common/components/BaseMoonIcon.vue";
+import gqlRequest from "../graphql/client";
+
+const JOBS_VIEW_QUERY = `
+  query {
+    jobs {
+      company
+      createdAt
+      id
+      location
+      logoBackground
+      logo {
+        url
+      }
+      position
+    }
+  }
+`;
 
 export default {
   components: {
@@ -60,6 +77,19 @@ export default {
     BaseLocationIcon,
     BaseSunIcon,
     BaseMoonIcon,
+  },
+  async created() {
+    try {
+      const response = await gqlRequest({
+        query: JOBS_VIEW_QUERY,
+        variables: {
+          limits: 10,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>
