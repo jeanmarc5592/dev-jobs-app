@@ -11,3 +11,8 @@ app.use(router);
 app.use(store);
 
 app.mount("#app");
+
+// FOR DEVELOPMENT ONLY (ACCESS THE STORE IN THE BROWSER)
+if (import.meta.env.DEV) {
+  window.store = store;
+}
