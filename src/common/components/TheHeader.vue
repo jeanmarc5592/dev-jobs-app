@@ -10,69 +10,25 @@
           <BaseMoonIcon />
         </n-space>
       </n-space>
-      <!-- FILTERS -->
-      <n-grid class="inner-bottom-container" cols="3">
-        <n-grid-item>
-          <n-input
-            class="form-input"
-            type="text"
-            placeholder="Filter by title, companies, expertise..."
-          >
-            <template #prefix>
-              <BaseSearchIcon />
-            </template>
-          </n-input>
-        </n-grid-item>
-        <n-grid-item>
-          <n-input
-            class="form-input"
-            type="text"
-            placeholder="Filter by location..."
-          >
-            <template #prefix>
-              <BaseLocationIcon />
-            </template>
-          </n-input>
-        </n-grid-item>
-        <n-grid-item class="button-container">
-          <n-checkbox>Full Time Only</n-checkbox>
-          <n-button type="primary">Search</n-button>
-        </n-grid-item>
-      </n-grid>
+      <!-- SLOT -->
+      <slot></slot>
     </div>
   </header>
 </template>
 
 <script>
-import {
-  NSpace,
-  NSwitch,
-  NInput,
-  NCheckbox,
-  NButton,
-  NGrid,
-  NGridItem,
-} from "naive-ui";
+import { NSpace, NSwitch } from "naive-ui";
 import BaseLogoIcon from "./BaseLogoIcon.vue";
 import BaseSunIcon from "./BaseSunIcon.vue";
 import BaseMoonIcon from "./BaseMoonIcon.vue";
-import BaseSearchIcon from "./BaseSearchIcon.vue";
-import BaseLocationIcon from "./BaseLocationIcon.vue";
 
 export default {
   components: {
     NSpace,
     NSwitch,
-    NInput,
-    NButton,
-    NCheckbox,
-    NGrid,
-    NGridItem,
     BaseLogoIcon,
     BaseSunIcon,
     BaseMoonIcon,
-    BaseSearchIcon,
-    BaseLocationIcon,
   },
 };
 </script>
@@ -111,26 +67,6 @@ export default {
 
   .inner-top-container {
     margin-bottom: 40px;
-  }
-
-  .inner-bottom-container {
-    background-color: #fff;
-    border-radius: 6px;
-    width: 100%;
-
-    .form-input {
-      border-right: 1px solid rgba(#19202d, 0.15);
-    }
-
-    .button-container {
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-
-      button {
-        margin-left: auto;
-      }
-    }
   }
 }
 </style>

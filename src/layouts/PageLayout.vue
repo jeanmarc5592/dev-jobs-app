@@ -1,5 +1,7 @@
 <template>
-  <TheHeader />
+  <the-header>
+    <slot name="header"></slot>
+  </the-header>
   <main class="main-container">
     <slot></slot>
   </main>
