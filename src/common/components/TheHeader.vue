@@ -74,6 +74,9 @@ export default {
   top: 75%;
   width: 100%;
 
+  @media only screen and (max-width: 1280px) {
+    padding: 0 2rem;
+  }
   .inner-top-container {
     margin-bottom: 40px;
   }
