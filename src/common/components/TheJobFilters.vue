@@ -62,10 +62,12 @@ export default {
       if (currentThemeMode === "light") {
         return {
           backgroundColor: "#fff",
+          transition: "all 0.3s",
         };
       }
       return {
         backgroundColor: "#19202D",
+        transition: "all 0.3s",
       };
     },
   },
