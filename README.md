@@ -4,6 +4,8 @@
   - helpful resource: https://www.datocms.com/docs/vue
 - Customizing the theme of Naive UI
   - helpful resource: https://www.naiveui.com/en-US/os-theme/docs/customize-theme
+- Binding Input Properties to Vuex 
+  - helpful resource: https://vuex.vuejs.org/guide/forms.html
 
 # New learned stuff
 
