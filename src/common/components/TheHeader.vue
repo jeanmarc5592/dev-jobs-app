@@ -6,7 +6,11 @@
         <BaseLogoIcon />
         <n-space>
           <BaseSunIcon />
-          <n-switch></n-switch>
+          <n-switch
+            checked-value="dark"
+            unchecked-value="light"
+            @update:value="updateThemeMode"
+          ></n-switch>
           <BaseMoonIcon />
         </n-space>
       </n-space>
@@ -29,6 +33,11 @@ export default {
     BaseLogoIcon,
     BaseSunIcon,
     BaseMoonIcon,
+  },
+  methods: {
+    updateThemeMode(newMode) {
+      this.$store.commit("changeThemeMode", { newMode });
+    },
   },
 };
 </script>

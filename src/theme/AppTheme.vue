@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { NConfigProvider } from "naive-ui";
+import { NConfigProvider, darkTheme } from "naive-ui";
 
 export default {
   components: {
@@ -16,7 +16,8 @@ export default {
   },
   computed: {
     theme() {
-      return null;
+      const { currentThemeMode } = this.$store.getters;
+      return currentThemeMode === "light" ? null : darkTheme;
     },
     lightThemeOverrides() {
       return {
