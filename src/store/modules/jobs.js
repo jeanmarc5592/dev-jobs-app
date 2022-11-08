@@ -6,7 +6,7 @@ const jobsModule = {
         location: "",
         fullTimeOnly: false,
       },
-      list: [],
+      list: null,
     };
   },
   mutations: {
