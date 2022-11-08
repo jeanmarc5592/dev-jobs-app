@@ -1,7 +1,5 @@
 <template>
-  <page-layout>
-    <p>Body</p>
-  </page-layout>
+  <page-layout></page-layout>
 </template>
 
 <script>

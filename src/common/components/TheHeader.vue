@@ -1,7 +1,8 @@
 <template>
   <header class="header-container">
     <div class="inner-container">
-      <n-space justify="space-between">
+      <!-- LOGO & SWITCH -->
+      <n-space class="inner-top-container" justify="space-between">
         <BaseLogoIcon />
         <n-space>
           <BaseSunIcon />
@@ -9,7 +10,8 @@
           <BaseMoonIcon />
         </n-space>
       </n-space>
-      <n-grid class="form-container" cols="3">
+      <!-- FILTERS -->
+      <n-grid class="inner-bottom-container" cols="3">
         <n-grid-item>
           <n-input
             class="form-input"
@@ -104,10 +106,14 @@ export default {
   position: absolute;
   transform: translate(-50%, -50%);
   left: 50%;
-  top: 50%;
+  top: 75%;
   width: 100%;
 
-  .form-container {
+  .inner-top-container {
+    margin-bottom: 40px;
+  }
+
+  .inner-bottom-container {
     background-color: #fff;
     border-radius: 6px;
     width: 100%;
