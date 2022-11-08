@@ -25,7 +25,7 @@ export default {
           first: 9,
         },
       });
-      console.log(response);
+      this.$store.commit("addJobs", response.jobs);
     } catch (error) {
       console.error(error);
     }

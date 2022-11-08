@@ -6,7 +6,7 @@ const jobsModule = {
         location: "",
         fullTimeOnly: false,
       },
-      list: null,
+      list: [],
     };
   },
   mutations: {
@@ -15,6 +15,9 @@ const jobsModule = {
         ...state.filters,
         ...payload,
       };
+    },
+    addJobs(state, payload) {
+      state.list = [...state.list, ...payload];
     },
   },
   getters: {
