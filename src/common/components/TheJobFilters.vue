@@ -1,5 +1,5 @@
 <template>
-  <n-grid class="filter-container" cols="3">
+  <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
     <n-grid-item>
       <n-input
         class="filter-input"
@@ -44,12 +44,24 @@ export default {
     BaseSearchIcon,
     BaseLocationIcon,
   },
+  computed: {
+    containerInlineStyles() {
+      const { currentThemeMode } = this.$store.getters;
+      if (currentThemeMode === "light") {
+        return {
+          backgroundColor: "#fff",
+        };
+      }
+      return {
+        backgroundColor: "#19202D",
+      };
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .filter-container {
-  background-color: #fff;
   border-radius: 6px;
   width: 100%;
 

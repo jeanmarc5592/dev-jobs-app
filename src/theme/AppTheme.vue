@@ -58,6 +58,9 @@ export default {
           heightMedium: "55px",
           textColor: "#19202D",
           border: "1px solid transparent",
+          borderHover: "1px solid transparent",
+          borderFocus: "1px solid transparent",
+          boxShadowFocus: "none",
         },
         Switch: {
           railColor: "#FFF",
@@ -114,6 +117,9 @@ export default {
           textColor: "#FFF",
           color: "#19202D",
           colorFocus: "#19202D",
+          borderHover: "1px solid transparent",
+          borderFocus: "1px solid transparent",
+          boxShadowFocus: "none",
         },
         Switch: {
           railColor: "#FFF",
@@ -122,7 +128,7 @@ export default {
           boxShadowFocus: "none",
         },
         Checkbox: {
-          textColor: "#19202D",
+          textColor: "#FFF",
         },
       };
     },
