@@ -6,7 +6,11 @@ const jobsModule = {
         location: "",
         fullTimeOnly: false,
       },
-      list: [],
+      list: {
+        data: [],
+        loading: false,
+        error: "",
+      },
     };
   },
   mutations: {
@@ -17,7 +21,13 @@ const jobsModule = {
       };
     },
     addJobs(state, payload) {
-      state.list = [...state.list, ...payload];
+      state.list.data = [...state.list.data, ...payload];
+    },
+    toggleLoading(state, payload) {
+      state.list.loading = payload;
+    },
+    toggleError(state, payload) {
+      state.list.error = payload;
     },
   },
   getters: {
