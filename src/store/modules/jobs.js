@@ -10,7 +10,11 @@ const jobsModule = {
         totalLength: 0,
         data: [],
         loading: false,
-        error: "",
+        error: {
+          hasError: false,
+          title: "",
+          description: "",
+        },
       },
     };
   },
@@ -34,6 +38,16 @@ const jobsModule = {
       // All stored jobs in backend (useful conditional rendering of "load more" button)
       state.list.totalLength = payload;
     },
+    addError(state, payload) {
+      state.list.error = payload;
+    },
+    resetError(state) {
+      state.list.error = {
+        hasError: false,
+        title: "",
+        description: "",
+      };
+    },
   },
   getters: {
     jobFilters(state) {
@@ -47,6 +61,9 @@ const jobsModule = {
     },
     totalJobsLength(state) {
       return state.list.totalLength;
+    },
+    error(state) {
+      return state.list.error;
     },
   },
 };

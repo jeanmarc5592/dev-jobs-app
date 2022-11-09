@@ -3,13 +3,19 @@
     <template #header>
       <TheJobFilters />
     </template>
-    <n-grid cols="3" screen-responsive :x-gap="30" :y-gap="65">
+    <n-grid
+      v-if="!error.hasError"
+      cols="3"
+      screen-responsive
+      :x-gap="30"
+      :y-gap="65"
+    >
       <n-grid-item v-for="job in this.$store.getters.jobsList" :key="job.id">
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
     <n-space
-      v-if="!allJobsWereFetched"
+      v-if="!allJobsWereFetched && !error.hasError"
       class="button-container"
       justify="center"
     >
@@ -17,11 +23,14 @@
         Load More</n-button
       >
     </n-space>
+    <n-alert v-if="error.hasError" type="error" :title="error.title">
+      {{ error.description }}
+    </n-alert>
   </page-layout>
 </template>
 
 <script>
-import { NGrid, NGridItem, NButton, NSpace } from "naive-ui";
+import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import TheJobFilters from "../common/components/TheJobFilters.vue";
 import gqlRequest from "../graphql/request";
@@ -36,6 +45,7 @@ export default {
     NGridItem,
     NButton,
     NSpace,
+    NAlert,
     PageLayout,
     TheJobFilters,
     JobCard,
@@ -50,6 +60,9 @@ export default {
       const { jobsListLength, totalJobsLength } = this.$store.getters;
       return jobsListLength === totalJobsLength;
     },
+    error() {
+      return this.$store.getters.error;
+    },
   },
   async mounted() {
     try {
@@ -63,7 +76,14 @@ export default {
       const jobs = response?.jobs || [];
       this.$store.commit("addTotalJobsLength", totalLength);
       this.$store.commit("addJobs", jobs);
+      this.$store.commit("resetError");
     } catch (error) {
+      const errorMsg = {
+        hasError: true,
+        title: "Oops... Something went wrong",
+        description: "We couldn't get your jobs. Please try again!",
+      };
+      this.$store.commit("addError", errorMsg);
       console.error(error);
     }
   },
@@ -79,8 +99,15 @@ export default {
         });
         const jobs = response?.jobs || [];
         this.$store.commit("addJobs", jobs);
+        this.$store.commit("resetError");
         this.page += 1;
       } catch (error) {
+        const errorMsg = {
+          hasError: true,
+          title: "Oops... Something went wrong",
+          description: "We couldn't get your jobs. Please try again!",
+        };
+        this.$store.commit("addError", errorMsg);
         console.error(error);
       }
     },
