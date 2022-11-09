@@ -17,7 +17,12 @@ export default {
   computed: {
     theme() {
       const { currentThemeMode } = this.$store.getters;
-      return currentThemeMode === "light" ? null : darkTheme;
+      if (currentThemeMode === "light") {
+        document.body.style.backgroundColor = "#F2F2F2";
+        return null;
+      }
+      document.body.style.backgroundColor = "#121721";
+      return darkTheme;
     },
     lightThemeOverrides() {
       return {
