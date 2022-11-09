@@ -3,7 +3,7 @@
     <template #header>
       <TheJobFilters />
     </template>
-    <n-grid cols="3" screen-responsive :x-gap="30" :y-gap="40">
+    <n-grid cols="3" screen-responsive :x-gap="30" :y-gap="65">
       <n-grid-item v-for="job in this.$store.getters.jobsList" :key="job.id">
         <JobCard v-bind="job" />
       </n-grid-item>

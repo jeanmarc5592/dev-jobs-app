@@ -100,6 +100,7 @@ export default {
 
 <style scoped lang="scss">
 .card-container {
+  position: relative;
   cursor: pointer;
   border-radius: 6px;
   padding: 32px;
@@ -113,6 +114,8 @@ export default {
 }
 
 .logo-container {
+  position: absolute;
+  top: -10%;
   width: 50px;
   height: 50px;
   border-radius: 15px;
@@ -124,6 +127,7 @@ export default {
 .meta-data-container {
   display: flex;
   align-items: center;
+  margin-top: 24px;
 
   p {
     color: #6e8098;
