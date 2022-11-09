@@ -9,8 +9,8 @@
       <n-p>{{ transformContract(contract) }}</n-p>
     </div>
     <n-h3 class="position">{{ position }}</n-h3>
-    <n-p>{{ company }}</n-p>
-    <n-p>{{ location }}</n-p>
+    <n-p class="company">{{ company }}</n-p>
+    <n-p class="location">{{ location }}</n-p>
   </div>
 </template>
 
@@ -132,5 +132,15 @@ export default {
 .position {
   font-weight: 600;
   margin: 16px 0;
+}
+
+.company {
+  color: #6e8098;
+  margin-bottom: 32px;
+}
+
+.location {
+  font-weight: 600;
+  color: #5964E0;
 }
 </style>
