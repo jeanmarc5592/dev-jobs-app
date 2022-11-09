@@ -25,7 +25,12 @@ const jobsModule = {
       };
     },
     addJobs(state, payload) {
+      // Used at first loading of "/jobs" and when "load more" button is clicked
       state.list.data = [...state.list.data, ...payload];
+    },
+    overwriteJobs(state, payload) {
+      // Used when filters are applied to add a new list of jobs
+      state.list.data = payload;
     },
     toggleLoading(state, payload) {
       state.list.loading = payload;

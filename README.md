@@ -20,3 +20,4 @@
 - headless CMS (hypgraph) to make the application more realisitic by fetching data
 - Pagination
 - 404 Page
+- "No Results" UI

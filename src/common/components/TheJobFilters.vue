@@ -30,7 +30,7 @@
       <n-checkbox :checked="fullTimeOnly" @update-checked="updateFullTimeOnly">
         Full Time Only
       </n-checkbox>
-      <n-button type="primary">Search</n-button>
+      <n-button @click="filterJobs" type="primary">Search</n-button>
     </n-grid-item>
   </n-grid>
 </template>
@@ -40,6 +40,13 @@ import { NInput, NCheckbox, NButton, NGrid, NGridItem } from "naive-ui";
 import { mapState } from "vuex";
 import BaseSearchIcon from "./BaseSearchIcon.vue";
 import BaseLocationIcon from "./BaseLocationIcon.vue";
+import gqlRequest from "../../graphql/request";
+import {
+  FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT,
+  FILTER_JOBS_VIEW_QUERY_WITH_CONTRACT,
+} from "../../graphql/queries";
+
+const ITEMS_PER_PAGE = 6;
 
 export default {
   components: {
@@ -50,6 +57,11 @@ export default {
     NGridItem,
     BaseSearchIcon,
     BaseLocationIcon,
+  },
+  data() {
+    return {
+      page: 1,
+    };
   },
   computed: {
     ...mapState({
@@ -80,6 +92,48 @@ export default {
     },
     updateFullTimeOnly(value) {
       this.$store.commit("updateFilters", { fullTimeOnly: value });
+    },
+    async filterJobs() {
+      let query = FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT;
+      const filters = this.$store.getters.jobFilters;
+      const filterRequestVariables = {
+        company: "",
+        position: "",
+        location: "",
+      };
+      if (filters.search) {
+        filterRequestVariables.company = filters.search;
+        filterRequestVariables.position = filters.search;
+      }
+      if (filters.location) {
+        filterRequestVariables.location = filters.location;
+      }
+      if (filters.fullTimeOnly) {
+        query = FILTER_JOBS_VIEW_QUERY_WITH_CONTRACT;
+        filterRequestVariables.contract = ["full_time"];
+      }
+      try {
+        const response = await gqlRequest({
+          query,
+          variables: {
+            first: ITEMS_PER_PAGE,
+            // skip: this.page * ITEMS_PER_PAGE,
+            ...filterRequestVariables,
+          },
+        });
+        const jobs = response?.jobs || [];
+        this.$store.commit("overwriteJobs", jobs);
+        this.$store.commit("resetError");
+        this.page += 1;
+      } catch (error) {
+        const errorMsg = {
+          hasError: true,
+          title: "Oops... Something went wrong",
+          description: "We couldn't get your jobs. Please try again!",
+        };
+        this.$store.commit("addError", errorMsg);
+        console.error(error);
+      }
     },
   },
 };
