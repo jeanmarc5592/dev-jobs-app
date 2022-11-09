@@ -9,7 +9,6 @@ const jobsModule = {
       list: {
         totalLength: 0,
         data: [],
-        loading: false,
         error: {
           hasError: false,
           title: "",
