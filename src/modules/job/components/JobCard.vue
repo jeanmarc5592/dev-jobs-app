@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="containerInlineStyles" class="card-container">
     <div :style="logoInlineStyles" class="logo-container">
       <n-image :src="logo.url" />
     </div>
@@ -57,6 +57,19 @@ export default {
     },
   },
   computed: {
+    containerInlineStyles() {
+      const { currentThemeMode } = this.$store.getters;
+      if (currentThemeMode === "light") {
+        return {
+          backgroundColor: "#fff",
+          transition: "all 0.3s",
+        };
+      }
+      return {
+        backgroundColor: "#19202D",
+        transition: "all 0.3s",
+      };
+    },
     logoInlineStyles() {
       return {
         "background-color": `${this.logoBackground}`,
@@ -67,6 +80,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.card-container {
+  border-radius: 6px;
+  padding: 32px;
+}
+
 .logo-container {
   width: 50px;
   height: 50px;
