@@ -3,8 +3,9 @@
     <div :style="logoInlineStyles" class="logo-container">
       <n-image :src="logo.url" />
     </div>
-    <div>
+    <div class="meta-data-container">
       <n-p>20h ago</n-p>
+      <n-p>&#8226;</n-p>
       <n-p>{{ contract }}</n-p>
     </div>
     <n-h3>{{ position }}</n-h3>
@@ -92,5 +93,22 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.meta-data-container {
+  display: flex;
+  align-items: center;
+
+  p {
+    color: #6e8098;
+    margin: 0;
+
+    &:first-of-type {
+      margin-right: 8px;
+    }
+    &:last-of-type {
+      margin-left: 8px;
+    }
+  }
 }
 </style>
