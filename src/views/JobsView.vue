@@ -8,7 +8,11 @@
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
-    <n-space class="button-container" justify="center">
+    <n-space
+      v-if="!allJobsWereFetched"
+      class="button-container"
+      justify="center"
+    >
       <n-button @click="loadMoreJobs" class="load-more-button" type="primary">
         Load More</n-button
       >
@@ -24,7 +28,7 @@ import gqlRequest from "../graphql/request";
 import { JOBS_VIEW_QUERY } from "../graphql/queries";
 import JobCard from "../modules/job/components/JobCard.vue";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 6;
 
 export default {
   components: {
@@ -42,9 +46,10 @@ export default {
     };
   },
   computed: {
-    jobsList() {
-      console.log(this.$store.getters.jobsList);
-      return "";
+    allJobsWereFetched() {
+      const { jobsListLength, totalJobsLength } = this.$store.getters;
+      console.log({ jobsListLength, totalJobsLength });
+      return jobsListLength === totalJobsLength;
     },
   },
   async mounted() {
@@ -55,7 +60,10 @@ export default {
           first: ITEMS_PER_PAGE,
         },
       });
-      this.$store.commit("addJobs", response.jobs);
+      const totalLength = response?.jobsConnection?.aggregate?.count || 0;
+      const jobs = response?.jobs || [];
+      this.$store.commit("addTotalJobsLength", totalLength);
+      this.$store.commit("addJobs", jobs);
     } catch (error) {
       console.error(error);
     }
@@ -70,8 +78,9 @@ export default {
             skip: this.page * ITEMS_PER_PAGE,
           },
         });
-        this.$store.commit("addJobs", response.jobs);
-        this.page += 2;
+        const jobs = response?.jobs || [];
+        this.$store.commit("addJobs", jobs);
+        this.page += 1;
       } catch (error) {
         console.error(error);
       }

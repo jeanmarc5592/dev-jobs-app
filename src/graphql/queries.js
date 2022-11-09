@@ -14,5 +14,10 @@ export const JOBS_VIEW_QUERY = gql`
       }
       position
     }
+    jobsConnection {
+      aggregate {
+        count
+      }
+    }
   }
 `;
