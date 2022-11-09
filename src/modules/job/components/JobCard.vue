@@ -4,9 +4,9 @@
       <n-image :src="logo.url" />
     </div>
     <div class="meta-data-container">
-      <n-p>20h ago</n-p>
+      <n-p>{{ transformCreatedAt(createdAt) }}</n-p>
       <n-p>&#8226;</n-p>
-      <n-p>{{ contract }}</n-p>
+      <n-p>{{ transformContract(contract) }}</n-p>
     </div>
     <n-h3>{{ position }}</n-h3>
     <n-p>{{ company }}</n-p>
@@ -74,6 +74,24 @@ export default {
     logoInlineStyles() {
       return {
         "background-color": `${this.logoBackground}`,
+      };
+    },
+    transformCreatedAt() {
+      // TODO: Optimize Date Display (e.g. "4d ago")
+      return (rawDate) => new Date(rawDate).toLocaleDateString();
+    },
+    transformContract() {
+      return (rawContract) => {
+        switch (rawContract) {
+          case "part_time":
+            return "Part Time";
+          case "full_time":
+            return "Full Time";
+          case "freelance":
+            return "Freelance";
+          default:
+            return rawContract;
+        }
       };
     },
   },
