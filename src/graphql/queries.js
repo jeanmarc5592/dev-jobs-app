@@ -5,6 +5,7 @@ export const JOBS_VIEW_QUERY = gql`
     jobs(first: $first) {
       company
       createdAt
+      contract
       id
       location
       logoBackground
