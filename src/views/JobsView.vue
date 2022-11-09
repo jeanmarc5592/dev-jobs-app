@@ -48,7 +48,6 @@ export default {
   computed: {
     allJobsWereFetched() {
       const { jobsListLength, totalJobsLength } = this.$store.getters;
-      console.log({ jobsListLength, totalJobsLength });
       return jobsListLength === totalJobsLength;
     },
   },
