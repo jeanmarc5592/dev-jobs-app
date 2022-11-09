@@ -7,6 +7,7 @@
         <n-space>
           <BaseSunIcon />
           <n-switch
+            :value="this.$store.getters.currentThemeMode"
             checked-value="dark"
             unchecked-value="light"
             @update:value="updateThemeMode"
