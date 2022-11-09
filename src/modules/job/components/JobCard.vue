@@ -8,7 +8,7 @@
       <n-p>&#8226;</n-p>
       <n-p>{{ transformContract(contract) }}</n-p>
     </div>
-    <n-h3>{{ position }}</n-h3>
+    <n-h3 class="position">{{ position }}</n-h3>
     <n-p>{{ company }}</n-p>
     <n-p>{{ location }}</n-p>
   </div>
@@ -119,7 +119,6 @@ export default {
 
   p {
     color: #6e8098;
-    margin: 0;
 
     &:first-of-type {
       margin-right: 8px;
@@ -128,5 +127,10 @@ export default {
       margin-left: 8px;
     }
   }
+}
+
+.position {
+  font-weight: 600;
+  margin: 16px 0;
 }
 </style>
