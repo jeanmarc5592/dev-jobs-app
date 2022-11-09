@@ -3,6 +3,7 @@
     <template #header>
       <TheJobFilters />
     </template>
+    <JobCard v-for="job in this.$store.getters.jobsList" :key="job.id" />
   </page-layout>
 </template>
 
@@ -11,11 +12,19 @@ import PageLayout from "../layouts/PageLayout.vue";
 import TheJobFilters from "../common/components/TheJobFilters.vue";
 import gqlRequest from "../graphql/request";
 import { JOBS_VIEW_QUERY } from "../graphql/queries";
+import JobCard from "../modules/job/components/JobCard.vue";
 
 export default {
   components: {
     PageLayout,
     TheJobFilters,
+    JobCard,
+  },
+  computed: {
+    jobsList() {
+      console.log(this.$store.getters.jobsList);
+      return "";
+    },
   },
   async mounted() {
     try {

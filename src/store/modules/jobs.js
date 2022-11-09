@@ -34,6 +34,9 @@ const jobsModule = {
     jobFilters(state) {
       return state.filters;
     },
+    jobsList(state) {
+      return state.list.data;
+    },
   },
 };
 
