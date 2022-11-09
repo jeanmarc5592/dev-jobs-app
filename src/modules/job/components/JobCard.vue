@@ -100,8 +100,16 @@ export default {
 
 <style scoped lang="scss">
 .card-container {
+  cursor: pointer;
   border-radius: 6px;
   padding: 32px;
+  transition: all 0.3s;
+
+  &:hover {
+    transition: all 0.3s;
+    transform: translateY(-3px);
+    box-shadow: 6px 6px 12px rgba(#000, 0.1);
+  }
 }
 
 .logo-container {
@@ -141,6 +149,6 @@ export default {
 
 .location {
   font-weight: 600;
-  color: #5964E0;
+  color: #5964e0;
 }
 </style>
