@@ -40,9 +40,6 @@ const jobsModule = {
     toggleLoading(state, payload) {
       state.list.loading = payload;
     },
-    toggleError(state, payload) {
-      state.list.error = payload;
-    },
     addError(state, payload) {
       state.list.error = payload;
     },

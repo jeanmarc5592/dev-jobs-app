@@ -30,14 +30,20 @@
       <n-checkbox :checked="fullTimeOnly" @update-checked="updateFullTimeOnly">
         Full Time Only
       </n-checkbox>
-      <n-button @click="filterJobs" type="primary">Search</n-button>
+      <n-button
+        :disabled="!filtersAreActive"
+        @click="filterJobs"
+        type="primary"
+      >
+        Search
+      </n-button>
     </n-grid-item>
   </n-grid>
 </template>
 
 <script>
 import { NInput, NCheckbox, NButton, NGrid, NGridItem } from "naive-ui";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import BaseSearchIcon from "./BaseSearchIcon.vue";
 import BaseLocationIcon from "./BaseLocationIcon.vue";
 
@@ -62,6 +68,7 @@ export default {
       location: (state) => state.jobs.filters.location,
       fullTimeOnly: (state) => state.jobs.filters.fullTimeOnly,
     }),
+    ...mapGetters(["filtersAreActive"]),
     containerInlineStyles() {
       const { currentThemeMode } = this.$store.getters;
       if (currentThemeMode === "light") {
