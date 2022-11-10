@@ -79,6 +79,7 @@ export default {
       this.$store.commit("addJobs", jobs);
       this.$store.commit("resetError");
       this.$store.commit("addHasNextPage", hasNextPage);
+      this.page += 1;
     } catch (error) {
       const errorMsg = {
         hasError: true,
