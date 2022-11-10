@@ -15,7 +15,7 @@
       </n-grid-item>
     </n-grid>
     <n-space
-      v-if="!allJobsWereFetched && !error.hasError"
+      v-if="loadMoreBtnIsRendered"
       class="button-container"
       justify="center"
     >
@@ -56,12 +56,13 @@ export default {
     };
   },
   computed: {
-    allJobsWereFetched() {
-      const { jobsListLength, totalJobsLength } = this.$store.getters;
-      return jobsListLength === totalJobsLength;
-    },
     error() {
       return this.$store.getters.error;
+    },
+    loadMoreBtnIsRendered() {
+      const { jobsListLength, totalJobsLength, error } = this.$store.getters;
+      const allJobsWereFetched = jobsListLength === totalJobsLength;
+      return !allJobsWereFetched && !error.hasError && jobsListLength > 0;
     },
   },
   async mounted() {
