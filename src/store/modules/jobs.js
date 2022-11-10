@@ -59,6 +59,9 @@ const jobsModule = {
     increaseCurrentPage(state) {
       state.list.currentPage++;
     },
+    resetCurrentPage(state) {
+      state.list.currentPage = 0;
+    },
   },
   getters: {
     jobFilters(state) {
@@ -82,7 +85,8 @@ const jobsModule = {
     },
   },
   actions: {
-    async loadJobsFromAPI({ commit, state }) {
+    async loadJobsFromAPI({ commit, state }, payload) {
+      const shouldOverwrite = payload?.shouldOverwrite || false;
       const filters = state.filters;
       const filterRequestVariables = {
         company: "",
@@ -112,9 +116,11 @@ const jobsModule = {
         const jobs = response?.jobs || [];
         const hasNextPage =
           response.jobsConnection?.pageInfo?.hasNextPage || false;
-        commit("addJobs", jobs);
         commit("resetError");
         commit("addHasNextPage", hasNextPage);
+        shouldOverwrite
+          ? commit("overwriteJobs", jobs)
+          : commit("addJobs", jobs);
         commit("increaseCurrentPage");
       } catch (error) {
         throw new Error(error);
