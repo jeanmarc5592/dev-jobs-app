@@ -8,7 +8,6 @@ const jobsModule = {
       },
       list: {
         hasNextPage: false,
-        totalLength: 0,
         data: [],
         error: {
           hasError: false,
@@ -39,10 +38,6 @@ const jobsModule = {
     toggleError(state, payload) {
       state.list.error = payload;
     },
-    addTotalJobsLength(state, payload) {
-      // All stored jobs in backend (useful conditional rendering of "load more" button)
-      state.list.totalLength = payload;
-    },
     addError(state, payload) {
       state.list.error = payload;
     },
@@ -66,9 +61,6 @@ const jobsModule = {
     },
     jobsListLength(state) {
       return state.list.data.length;
-    },
-    totalJobsLength(state) {
-      return state.list.totalLength;
     },
     error(state) {
       return state.list.error;
