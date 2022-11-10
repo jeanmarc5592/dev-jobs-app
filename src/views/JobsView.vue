@@ -60,9 +60,8 @@ export default {
       return this.$store.getters.error;
     },
     loadMoreBtnIsRendered() {
-      const { jobsListLength, totalJobsLength, error } = this.$store.getters;
-      const allJobsWereFetched = jobsListLength === totalJobsLength;
-      return !allJobsWereFetched && !error.hasError && jobsListLength > 0;
+      const { hasNextPage, jobsListLength, error } = this.$store.getters;
+      return hasNextPage && !error.hasError && jobsListLength > 0;
     },
   },
   async mounted() {
@@ -73,11 +72,12 @@ export default {
           first: ITEMS_PER_PAGE,
         },
       });
-      const totalLength = response?.jobsConnection?.aggregate?.count || 0;
-      const jobs = response?.jobs || [];
-      this.$store.commit("addTotalJobsLength", totalLength);
+      const jobs = response.jobs || [];
+      const hasNextPage =
+        response.jobsConnection?.pageInfo?.hasNextPage || false;
       this.$store.commit("addJobs", jobs);
       this.$store.commit("resetError");
+      this.$store.commit("addHasNextPage", hasNextPage);
     } catch (error) {
       const errorMsg = {
         hasError: true,
@@ -99,8 +99,11 @@ export default {
           },
         });
         const jobs = response?.jobs || [];
+        const hasNextPage =
+          response.jobsConnection?.pageInfo?.hasNextPage || false;
         this.$store.commit("addJobs", jobs);
         this.$store.commit("resetError");
+        this.$store.commit("addHasNextPage", hasNextPage);
         this.page += 1;
       } catch (error) {
         const errorMsg = {

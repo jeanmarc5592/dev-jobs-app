@@ -14,9 +14,9 @@ export const JOBS_VIEW_QUERY = gql`
       }
       position
     }
-    jobsConnection {
-      aggregate {
-        count
+    jobsConnection(first: $first, skip: $skip) {
+      pageInfo {
+        hasNextPage
       }
     }
   }
