@@ -117,8 +117,16 @@ const jobsModule = {
         commit("addHasNextPage", hasNextPage);
         commit("increaseCurrentPage");
       } catch (error) {
-        return error;
+        throw new Error(error);
       }
+    },
+    addGenericLoadingError({ commit }) {
+      const errorMsg = {
+        hasError: true,
+        title: "Oops... Something went wrong",
+        description: "We couldn't get your jobs. Please try again!",
+      };
+      commit("addError", errorMsg);
     },
   },
 };

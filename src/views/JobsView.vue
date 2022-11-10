@@ -19,7 +19,7 @@
       class="button-container"
       justify="center"
     >
-      <n-button @click="loadMoreJobs" class="load-more-button" type="primary">
+      <n-button @click="loadJobs" class="load-more-button" type="primary">
         Load More</n-button
       >
     </n-space>
@@ -55,30 +55,15 @@ export default {
       return hasNextPage && !error.hasError && jobsListLength > 0;
     },
   },
-  async mounted() {
-    try {
-      this.$store.dispatch("loadJobsFromAPI");
-    } catch (error) {
-      const errorMsg = {
-        hasError: true,
-        title: "Oops... Something went wrong",
-        description: "We couldn't get your jobs. Please try again!",
-      };
-      this.$store.commit("addError", errorMsg);
-      console.error(error);
-    }
+  mounted() {
+    this.loadJobs();
   },
   methods: {
-    async loadMoreJobs() {
+    async loadJobs() {
       try {
-        this.$store.dispatch("loadJobsFromAPI");
+        await this.$store.dispatch("loadJobsFromAPI");
       } catch (error) {
-        const errorMsg = {
-          hasError: true,
-          title: "Oops... Something went wrong",
-          description: "We couldn't get your jobs. Please try again!",
-        };
-        this.$store.commit("addError", errorMsg);
+        this.$store.dispatch("addGenericLoadingError");
         console.error(error);
       }
     },
