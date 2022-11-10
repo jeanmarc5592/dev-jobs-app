@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      page: 0,
     };
   },
   computed: {
@@ -70,6 +70,7 @@ export default {
         query: JOBS_VIEW_QUERY,
         variables: {
           first: ITEMS_PER_PAGE,
+          skip: this.page * ITEMS_PER_PAGE,
         },
       });
       const jobs = response.jobs || [];
