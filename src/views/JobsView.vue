@@ -33,11 +33,7 @@
 import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import TheJobFilters from "../common/components/TheJobFilters.vue";
-import gqlRequest from "../graphql/request";
-import { JOBS_VIEW_QUERY } from "../graphql/queries";
 import JobCard from "../modules/job/components/JobCard.vue";
-
-const ITEMS_PER_PAGE = 6;
 
 export default {
   components: {
@@ -50,11 +46,6 @@ export default {
     TheJobFilters,
     JobCard,
   },
-  data() {
-    return {
-      page: 0,
-    };
-  },
   computed: {
     error() {
       return this.$store.getters.error;
@@ -66,20 +57,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await gqlRequest({
-        query: JOBS_VIEW_QUERY,
-        variables: {
-          first: ITEMS_PER_PAGE,
-          skip: this.page * ITEMS_PER_PAGE,
-        },
-      });
-      const jobs = response.jobs || [];
-      const hasNextPage =
-        response.jobsConnection?.pageInfo?.hasNextPage || false;
-      this.$store.commit("addJobs", jobs);
-      this.$store.commit("resetError");
-      this.$store.commit("addHasNextPage", hasNextPage);
-      this.page += 1;
+      this.$store.dispatch("loadJobsFromAPI");
     } catch (error) {
       const errorMsg = {
         hasError: true,
@@ -93,20 +71,7 @@ export default {
   methods: {
     async loadMoreJobs() {
       try {
-        const response = await gqlRequest({
-          query: JOBS_VIEW_QUERY,
-          variables: {
-            first: ITEMS_PER_PAGE,
-            skip: this.page * ITEMS_PER_PAGE,
-          },
-        });
-        const jobs = response?.jobs || [];
-        const hasNextPage =
-          response.jobsConnection?.pageInfo?.hasNextPage || false;
-        this.$store.commit("addJobs", jobs);
-        this.$store.commit("resetError");
-        this.$store.commit("addHasNextPage", hasNextPage);
-        this.page += 1;
+        this.$store.dispatch("loadJobsFromAPI");
       } catch (error) {
         const errorMsg = {
           hasError: true,
