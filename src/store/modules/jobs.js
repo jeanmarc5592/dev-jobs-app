@@ -7,6 +7,7 @@ const jobsModule = {
         fullTimeOnly: false,
       },
       list: {
+        hasNextPage: false,
         totalLength: 0,
         data: [],
         error: {
@@ -52,6 +53,9 @@ const jobsModule = {
         description: "",
       };
     },
+    addHasNextPage(state, payload) {
+      state.list.hasNextPage = payload;
+    },
   },
   getters: {
     jobFilters(state) {
@@ -68,6 +72,13 @@ const jobsModule = {
     },
     error(state) {
       return state.list.error;
+    },
+    filtersAreActive(state) {
+      const { search, location, fullTimeOnly } = state.filters;
+      return search || location || fullTimeOnly;
+    },
+    hasNextPage(state) {
+      return state.list.hasNextPage;
     },
   },
 };
