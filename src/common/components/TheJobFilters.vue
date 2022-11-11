@@ -1,38 +1,43 @@
 <template>
-  <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
-    <n-grid-item>
-      <n-input
-        :value="search"
-        @input="updateSearch"
-        class="filter-input"
-        type="text"
-        placeholder="Filter by title, companies, expertise..."
-      >
-        <template #prefix>
-          <BaseSearchIcon />
-        </template>
-      </n-input>
-    </n-grid-item>
-    <n-grid-item>
-      <n-input
-        :value="location"
-        @input="updateLocation"
-        class="filter-input"
-        type="text"
-        placeholder="Filter by location..."
-      >
-        <template #prefix>
-          <BaseLocationIcon />
-        </template>
-      </n-input>
-    </n-grid-item>
-    <n-grid-item class="button-container">
-      <n-checkbox :checked="fullTimeOnly" @update-checked="updateFullTimeOnly">
-        Full Time Only
-      </n-checkbox>
-      <n-button @click="filterJobs" type="primary"> Search </n-button>
-    </n-grid-item>
-  </n-grid>
+  <form @submit.prevent="filterJobs">
+    <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
+      <n-grid-item>
+        <n-input
+          :value="search"
+          @input="updateSearch"
+          class="filter-input"
+          type="text"
+          placeholder="Filter by title, companies, expertise..."
+        >
+          <template #prefix>
+            <BaseSearchIcon />
+          </template>
+        </n-input>
+      </n-grid-item>
+      <n-grid-item>
+        <n-input
+          :value="location"
+          @input="updateLocation"
+          class="filter-input"
+          type="text"
+          placeholder="Filter by location..."
+        >
+          <template #prefix>
+            <BaseLocationIcon />
+          </template>
+        </n-input>
+      </n-grid-item>
+      <n-grid-item class="button-container">
+        <n-checkbox
+          :checked="fullTimeOnly"
+          @update-checked="updateFullTimeOnly"
+        >
+          Full Time Only
+        </n-checkbox>
+        <n-button attr-type="submit" type="primary"> Search </n-button>
+      </n-grid-item>
+    </n-grid>
+  </form>
 </template>
 
 <script>
