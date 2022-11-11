@@ -1,34 +1,13 @@
 import { gql } from "graphql-request";
 
-export const JOBS_VIEW_QUERY = gql`
-  query getJobs($first: Int, $skip: Int) {
-    jobs(first: $first, skip: $skip) {
-      company
-      createdAt
-      contract
-      id
-      location
-      logoBackground
-      logo {
-        url
-      }
-      position
-    }
-    jobsConnection {
-      aggregate {
-        count
-      }
-    }
-  }
-`;
-
-export const FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT = gql`
+export const GET_JOBS = gql`
   query getJobs(
     $first: Int
     $skip: Int
     $company: String
     $position: String
     $location: String
+    $contract: String
   ) {
     jobs(
       first: $first
@@ -36,6 +15,7 @@ export const FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT = gql`
       where: {
         OR: [{ company_contains: $company }, { position_contains: $position }]
         location_contains: $location
+        contract_contains: $contract
       }
     ) {
       company
@@ -49,37 +29,18 @@ export const FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT = gql`
       }
       position
     }
-  }
-`;
-
-export const FILTER_JOBS_VIEW_QUERY_WITH_CONTRACT = gql`
-  query getJobs(
-    $first: Int
-    $skip: Int
-    $company: String
-    $position: String
-    $location: String
-    $contract: [ContractType]
-  ) {
-    jobs(
+    jobsConnection(
       first: $first
       skip: $skip
       where: {
         OR: [{ company_contains: $company }, { position_contains: $position }]
         location_contains: $location
-        contract_in: $contract
+        contract_contains: $contract
       }
     ) {
-      company
-      createdAt
-      contract
-      id
-      location
-      logoBackground
-      logo {
-        url
+      pageInfo {
+        hasNextPage
       }
-      position
     }
   }
 `;

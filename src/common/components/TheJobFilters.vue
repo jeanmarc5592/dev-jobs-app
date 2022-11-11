@@ -1,38 +1,45 @@
 <template>
-  <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
-    <n-grid-item>
-      <n-input
-        :value="search"
-        @input="updateSearch"
-        class="filter-input"
-        type="text"
-        placeholder="Filter by title, companies, expertise..."
-      >
-        <template #prefix>
-          <BaseSearchIcon />
-        </template>
-      </n-input>
-    </n-grid-item>
-    <n-grid-item>
-      <n-input
-        :value="location"
-        @input="updateLocation"
-        class="filter-input"
-        type="text"
-        placeholder="Filter by location..."
-      >
-        <template #prefix>
-          <BaseLocationIcon />
-        </template>
-      </n-input>
-    </n-grid-item>
-    <n-grid-item class="button-container">
-      <n-checkbox :checked="fullTimeOnly" @update-checked="updateFullTimeOnly">
-        Full Time Only
-      </n-checkbox>
-      <n-button @click="filterJobs" type="primary">Search</n-button>
-    </n-grid-item>
-  </n-grid>
+  <form @submit.prevent="filterJobs">
+    <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
+      <n-grid-item>
+        <n-input
+          :value="search"
+          @input="updateSearch"
+          class="filter-input"
+          type="text"
+          placeholder="Filter by title, companies, expertise..."
+          clearable
+        >
+          <template #prefix>
+            <BaseSearchIcon />
+          </template>
+        </n-input>
+      </n-grid-item>
+      <n-grid-item>
+        <n-input
+          :value="location"
+          @input="updateLocation"
+          class="filter-input"
+          type="text"
+          placeholder="Filter by location..."
+          clearable
+        >
+          <template #prefix>
+            <BaseLocationIcon />
+          </template>
+        </n-input>
+      </n-grid-item>
+      <n-grid-item class="button-container">
+        <n-checkbox
+          :checked="fullTimeOnly"
+          @update-checked="updateFullTimeOnly"
+        >
+          Full Time Only
+        </n-checkbox>
+        <n-button attr-type="submit" type="primary"> Search </n-button>
+      </n-grid-item>
+    </n-grid>
+  </form>
 </template>
 
 <script>
@@ -40,13 +47,6 @@ import { NInput, NCheckbox, NButton, NGrid, NGridItem } from "naive-ui";
 import { mapState } from "vuex";
 import BaseSearchIcon from "./BaseSearchIcon.vue";
 import BaseLocationIcon from "./BaseLocationIcon.vue";
-import gqlRequest from "../../graphql/request";
-import {
-  FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT,
-  FILTER_JOBS_VIEW_QUERY_WITH_CONTRACT,
-} from "../../graphql/queries";
-
-const ITEMS_PER_PAGE = 6;
 
 export default {
   components: {
@@ -94,44 +94,13 @@ export default {
       this.$store.commit("updateFilters", { fullTimeOnly: value });
     },
     async filterJobs() {
-      let query = FILTER_JOBS_VIEW_QUERY_WITHOUT_CONTRACT;
-      const filters = this.$store.getters.jobFilters;
-      const filterRequestVariables = {
-        company: "",
-        position: "",
-        location: "",
-      };
-      if (filters.search) {
-        filterRequestVariables.company = filters.search;
-        filterRequestVariables.position = filters.search;
-      }
-      if (filters.location) {
-        filterRequestVariables.location = filters.location;
-      }
-      if (filters.fullTimeOnly) {
-        query = FILTER_JOBS_VIEW_QUERY_WITH_CONTRACT;
-        filterRequestVariables.contract = ["full_time"];
-      }
       try {
-        const response = await gqlRequest({
-          query,
-          variables: {
-            first: ITEMS_PER_PAGE,
-            // skip: this.page * ITEMS_PER_PAGE,
-            ...filterRequestVariables,
-          },
+        this.$store.commit("resetCurrentPage");
+        await this.$store.dispatch("loadJobsFromAPI", {
+          shouldOverwrite: true,
         });
-        const jobs = response?.jobs || [];
-        this.$store.commit("overwriteJobs", jobs);
-        this.$store.commit("resetError");
-        this.page += 1;
       } catch (error) {
-        const errorMsg = {
-          hasError: true,
-          title: "Oops... Something went wrong",
-          description: "We couldn't get your jobs. Please try again!",
-        };
-        this.$store.commit("addError", errorMsg);
+        this.$store.dispatch("addGenericLoadingError");
         console.error(error);
       }
     },

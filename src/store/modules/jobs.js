@@ -1,3 +1,6 @@
+import gqlRequest from "../../graphql/request";
+import { GET_JOBS } from "../../graphql/queries";
+
 const jobsModule = {
   state() {
     return {
@@ -7,7 +10,9 @@ const jobsModule = {
         fullTimeOnly: false,
       },
       list: {
-        totalLength: 0,
+        currentPage: 0,
+        items_per_page: 6,
+        hasNextPage: false,
         data: [],
         error: {
           hasError: false,
@@ -35,13 +40,6 @@ const jobsModule = {
     toggleLoading(state, payload) {
       state.list.loading = payload;
     },
-    toggleError(state, payload) {
-      state.list.error = payload;
-    },
-    addTotalJobsLength(state, payload) {
-      // All stored jobs in backend (useful conditional rendering of "load more" button)
-      state.list.totalLength = payload;
-    },
     addError(state, payload) {
       state.list.error = payload;
     },
@@ -51,6 +49,15 @@ const jobsModule = {
         title: "",
         description: "",
       };
+    },
+    addHasNextPage(state, payload) {
+      state.list.hasNextPage = payload;
+    },
+    increaseCurrentPage(state) {
+      state.list.currentPage++;
+    },
+    resetCurrentPage(state) {
+      state.list.currentPage = 0;
     },
   },
   getters: {
@@ -63,11 +70,62 @@ const jobsModule = {
     jobsListLength(state) {
       return state.list.data.length;
     },
-    totalJobsLength(state) {
-      return state.list.totalLength;
-    },
     error(state) {
       return state.list.error;
+    },
+    hasNextPage(state) {
+      return state.list.hasNextPage;
+    },
+  },
+  actions: {
+    async loadJobsFromAPI({ commit, state }, payload) {
+      const shouldOverwrite = payload?.shouldOverwrite || false;
+      const filters = state.filters;
+      const filterRequestVariables = {
+        company: "",
+        position: "",
+        location: "",
+        contract: "",
+      };
+      if (filters.search) {
+        filterRequestVariables.company = filters.search;
+        filterRequestVariables.position = filters.search;
+      }
+      if (filters.location) {
+        filterRequestVariables.location = filters.location;
+      }
+      if (filters.fullTimeOnly) {
+        filterRequestVariables.contract = "Full Time";
+      }
+      try {
+        const response = await gqlRequest({
+          query: GET_JOBS,
+          variables: {
+            first: state.list.items_per_page,
+            skip: state.list.currentPage * state.list.items_per_page,
+            ...filterRequestVariables,
+          },
+        });
+        const jobs = response?.jobs || [];
+        const hasNextPage =
+          response.jobsConnection?.pageInfo?.hasNextPage || false;
+        commit("resetError");
+        commit("addHasNextPage", hasNextPage);
+        shouldOverwrite
+          ? commit("overwriteJobs", jobs)
+          : commit("addJobs", jobs);
+        commit("increaseCurrentPage");
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    addGenericLoadingError({ commit }) {
+      const errorMsg = {
+        hasError: true,
+        title: "Oops... Something went wrong",
+        description: "We couldn't get your jobs. Please try again!",
+      };
+      commit("addError", errorMsg);
     },
   },
 };

@@ -4,7 +4,7 @@
       <TheJobFilters />
     </template>
     <n-grid
-      v-if="!error.hasError"
+      v-if="jobGridIsRendered"
       cols="3"
       screen-responsive
       :x-gap="30"
@@ -14,12 +14,13 @@
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
+    <NoJobs v-else />
     <n-space
       v-if="loadMoreBtnIsRendered"
       class="button-container"
       justify="center"
     >
-      <n-button @click="loadMoreJobs" class="load-more-button" type="primary">
+      <n-button @click="loadJobs" class="load-more-button" type="primary">
         Load More</n-button
       >
     </n-space>
@@ -30,14 +31,12 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import TheJobFilters from "../common/components/TheJobFilters.vue";
-import gqlRequest from "../graphql/request";
-import { JOBS_VIEW_QUERY } from "../graphql/queries";
 import JobCard from "../modules/job/components/JobCard.vue";
-
-const ITEMS_PER_PAGE = 6;
+import NoJobs from "../modules/job/components/NoJobs.vue";
 
 export default {
   components: {
@@ -49,66 +48,31 @@ export default {
     PageLayout,
     TheJobFilters,
     JobCard,
-  },
-  data() {
-    return {
-      page: 1,
-    };
+    NoJobs,
   },
   computed: {
+    ...mapGetters(["error", "jobsListLength", "hasNextPage"]),
     error() {
       return this.$store.getters.error;
     },
+    jobGridIsRendered() {
+      return !this.error.hasError && this.jobsListLength > 0;
+    },
     loadMoreBtnIsRendered() {
-      const { jobsListLength, totalJobsLength, error } = this.$store.getters;
-      const allJobsWereFetched = jobsListLength === totalJobsLength;
-      return !allJobsWereFetched && !error.hasError && jobsListLength > 0;
+      return (
+        this.hasNextPage && !this.error.hasError && this.jobsListLength > 0
+      );
     },
   },
-  async mounted() {
-    try {
-      const response = await gqlRequest({
-        query: JOBS_VIEW_QUERY,
-        variables: {
-          first: ITEMS_PER_PAGE,
-        },
-      });
-      const totalLength = response?.jobsConnection?.aggregate?.count || 0;
-      const jobs = response?.jobs || [];
-      this.$store.commit("addTotalJobsLength", totalLength);
-      this.$store.commit("addJobs", jobs);
-      this.$store.commit("resetError");
-    } catch (error) {
-      const errorMsg = {
-        hasError: true,
-        title: "Oops... Something went wrong",
-        description: "We couldn't get your jobs. Please try again!",
-      };
-      this.$store.commit("addError", errorMsg);
-      console.error(error);
-    }
+  mounted() {
+    this.loadJobs();
   },
   methods: {
-    async loadMoreJobs() {
+    async loadJobs() {
       try {
-        const response = await gqlRequest({
-          query: JOBS_VIEW_QUERY,
-          variables: {
-            first: ITEMS_PER_PAGE,
-            skip: this.page * ITEMS_PER_PAGE,
-          },
-        });
-        const jobs = response?.jobs || [];
-        this.$store.commit("addJobs", jobs);
-        this.$store.commit("resetError");
-        this.page += 1;
+        await this.$store.dispatch("loadJobsFromAPI");
       } catch (error) {
-        const errorMsg = {
-          hasError: true,
-          title: "Oops... Something went wrong",
-          description: "We couldn't get your jobs. Please try again!",
-        };
-        this.$store.commit("addError", errorMsg);
+        this.$store.dispatch("addGenericLoadingError");
         console.error(error);
       }
     },
