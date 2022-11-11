@@ -73,10 +73,6 @@ const jobsModule = {
     error(state) {
       return state.list.error;
     },
-    filtersAreActive(state) {
-      const { search, location, fullTimeOnly } = state.filters;
-      return search || location || fullTimeOnly;
-    },
     hasNextPage(state) {
       return state.list.hasNextPage;
     },
