@@ -8,6 +8,7 @@
           class="filter-input"
           type="text"
           placeholder="Filter by title, companies, expertise..."
+          clearable
         >
           <template #prefix>
             <BaseSearchIcon />
@@ -21,6 +22,7 @@
           class="filter-input"
           type="text"
           placeholder="Filter by location..."
+          clearable
         >
           <template #prefix>
             <BaseLocationIcon />
