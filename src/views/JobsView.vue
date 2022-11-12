@@ -14,7 +14,7 @@
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
-    <NoJobs v-else />
+    <NoJobs v-else-if="!firstLoading" />
     <n-space
       v-if="loadMoreBtnIsRendered"
       class="button-container"
@@ -51,7 +51,7 @@ export default {
     NoJobs,
   },
   computed: {
-    ...mapGetters(["error", "jobsListLength", "hasNextPage"]),
+    ...mapGetters(["error", "jobsListLength", "hasNextPage", "firstLoading"]),
     error() {
       return this.$store.getters.error;
     },

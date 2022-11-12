@@ -13,6 +13,7 @@ const jobsModule = {
         currentPage: 0,
         items_per_page: 6,
         hasNextPage: false,
+        firstLoading: true,
         data: [],
         error: {
           hasError: false,
@@ -59,6 +60,9 @@ const jobsModule = {
     resetCurrentPage(state) {
       state.list.currentPage = 0;
     },
+    resetFirstLoading(state) {
+      state.list.firstLoading = false;
+    },
   },
   getters: {
     jobFilters(state) {
@@ -75,6 +79,9 @@ const jobsModule = {
     },
     hasNextPage(state) {
       return state.list.hasNextPage;
+    },
+    firstLoading(state) {
+      return state.list.firstLoading;
     },
   },
   actions: {
@@ -115,7 +122,9 @@ const jobsModule = {
           ? commit("overwriteJobs", jobs)
           : commit("addJobs", jobs);
         commit("increaseCurrentPage");
+        commit("resetFirstLoading");
       } catch (error) {
+        commit("resetFirstLoading");
         throw new Error(error);
       }
     },
