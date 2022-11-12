@@ -5,8 +5,8 @@
     </template>
     <n-grid
       v-if="jobGridIsRendered"
-      cols="3"
-      screen-responsive
+      cols="3 xs:1 s:2 m:3 l:3 xl:3"
+      responsive="screen"
       :x-gap="30"
       :y-gap="65"
     >
