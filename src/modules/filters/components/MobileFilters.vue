@@ -1,9 +1,9 @@
 <template>
   <FilterContainer>
-    <n-grid-item>
+    <n-grid-item span="2">
       <FiltersTextInput :hasIcon="false" inputType="search" />
     </n-grid-item>
-    <n-grid-item>
+    <n-grid-item class="button-container">
       <n-button>
         <template #icon>
           <BaseFilterIcon />
@@ -32,3 +32,10 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.button-container {
+  display: flex;
+  align-items: center;
+}
+</style>

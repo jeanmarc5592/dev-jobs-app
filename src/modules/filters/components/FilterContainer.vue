@@ -1,6 +1,11 @@
 <template>
   <form @submit.prevent="filterJobs">
-    <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
+    <n-grid
+      class="filter-container"
+      cols="3"
+      responsive="screen"
+      :style="containerInlineStyles"
+    >
       <slot></slot>
     </n-grid>
   </form>
