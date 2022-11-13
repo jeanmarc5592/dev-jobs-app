@@ -7,9 +7,3 @@
     />
   </svg>
 </template>
-
-<style scoped>
-svg {
-  margin-right: 8px;
-}
-</style>

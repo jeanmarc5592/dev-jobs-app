@@ -1,7 +1,7 @@
 <template>
-  <n-button attr-type="submit" type="primary">
+  <n-button class="button" attr-type="submit" type="primary">
     <span class="hide-on-mobile">Search</span>
-    <BaseSearchIcon class="hide-on-desktop" />
+    <BaseSearchIcon fillColor="#fff" class="hide-on-desktop" />
   </n-button>
 </template>
 
@@ -13,3 +13,11 @@ export default {
   components: { NButton, BaseSearchIcon },
 };
 </script>
+
+<style scoped lang="scss">
+.button {
+  @media only screen and (max-width: 768px) {
+    padding: 8px;
+  }
+}
+</style>

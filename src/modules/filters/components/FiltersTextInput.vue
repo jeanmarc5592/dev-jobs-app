@@ -10,7 +10,7 @@
     clearable
   >
     <template #prefix>
-      <BaseSearchIcon />
+      <BaseSearchIcon class="icon" />
     </template>
   </n-input>
   <!-- LOCATION -->
@@ -24,7 +24,7 @@
     clearable
   >
     <template #prefix>
-      <BaseLocationIcon />
+      <BaseLocationIcon class="icon" />
     </template>
   </n-input>
 </template>
@@ -68,5 +68,9 @@ export default {
 <style scoped lang="scss">
 .filter-input {
   border-right: 1px solid rgba(#19202d, 0.15);
+}
+
+.icon {
+  margin-right: 8px;
 }
 </style>
