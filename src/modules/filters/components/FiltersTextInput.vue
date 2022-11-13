@@ -4,7 +4,7 @@
     v-if="inputType === 'search'"
     :value="search"
     @input="updateSearch"
-    class="filter-input"
+    :class="inputClasses"
     type="text"
     placeholder="Filter by title, companies, expertise..."
     clearable
@@ -18,7 +18,7 @@
     v-if="inputType === 'location'"
     :value="location"
     @input="updateLocation"
-    class="filter-input"
+    :class="inputClasses"
     type="text"
     placeholder="Filter by location..."
     clearable
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 import { NInput } from "naive-ui";
 import BaseSearchIcon from "../../../common/components/BaseSearchIcon.vue";
 import BaseLocationIcon from "../../../common/components/BaseLocationIcon.vue";
@@ -50,12 +50,28 @@ export default {
       type: Boolean,
       default: true,
     },
+    hasBorderBottom: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     ...mapState({
       search: (state) => state.jobs.filters.search,
       location: (state) => state.jobs.filters.location,
     }),
+    ...mapGetters(["currentThemeMode"]),
+    inputClasses() {
+      const lightMode = this.currentThemeMode === "light";
+      const darkMode = this.currentThemeMode === "dark";
+      const hasBorderBottom = this.hasBorderBottom;
+      return {
+        "border-right-dark": lightMode && !hasBorderBottom,
+        "border-right-light": darkMode && !hasBorderBottom,
+        "border-bottom-dark": lightMode && hasBorderBottom,
+        "border-bottom-light": darkMode && hasBorderBottom,
+      };
+    },
   },
   methods: {
     ...mapMutations(["updateFilters"]),
@@ -70,8 +86,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.filter-input {
+.border-right-dark {
   border-right: 1px solid rgba(#19202d, 0.15);
+  transition: all 0.3s;
+}
+
+.border-right-light {
+  border-right: 1px solid rgba(#fff, 0.15);
+  transition: all 0.3s;
+}
+
+.border-bottom-dark {
+  border-bottom: 1px solid rgba(#19202d, 0.15);
+  transition: all 0.3s;
+}
+
+.border-bottom-light {
+  border-bottom: 1px solid rgba(#fff, 0.15);
+  transition: all 0.3s;
 }
 
 .icon {

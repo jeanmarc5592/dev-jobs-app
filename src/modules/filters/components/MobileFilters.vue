@@ -1,5 +1,5 @@
 <template>
-  <FilterContainer>
+  <FilterContainer class="hide-on-desktop">
     <n-grid-item span="2">
       <FiltersTextInput :hasIcon="false" inputType="search" />
     </n-grid-item>
@@ -13,8 +13,14 @@
     </n-grid-item>
   </FilterContainer>
   <n-modal v-model:show="modalIsOpen">
-    <n-card class="modal-card" size="small" role="dialog" aria-modal="true">
-      <FiltersTextInput inputType="location" />
+    <n-card
+      :bordered="false"
+      class="modal-card"
+      size="small"
+      role="dialog"
+      aria-modal="true"
+    >
+      <FiltersTextInput hasBorderBottom inputType="location" />
       <n-space class="modal-bottom-container" vertical>
         <FiltersCheckbox class="modal-checkbox" />
         <n-button
@@ -53,7 +59,7 @@ export default {
   },
   data() {
     return {
-      modalIsOpen: true,
+      modalIsOpen: false,
     };
   },
   methods: {

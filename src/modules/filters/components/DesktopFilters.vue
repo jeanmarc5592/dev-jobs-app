@@ -1,5 +1,5 @@
 <template>
-  <FilterContainer>
+  <FilterContainer class="hide-on-mobile">
     <n-grid-item>
       <TextInput inputType="search" />
     </n-grid-item>

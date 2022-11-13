@@ -89,6 +89,7 @@ export default {
         },
         Card: {
           paddingSmall: "0px",
+          color: "#F2F2F2",
         },
       };
     },
@@ -162,6 +163,7 @@ export default {
         },
         Card: {
           paddingSmall: "0px",
+          colorModal: "#19202D",
         },
       };
     },

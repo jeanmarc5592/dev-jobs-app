@@ -1,6 +1,6 @@
 <template>
-  <DesktopFilters class="hide-on-mobile" />
-  <MobileFilters class="hide-on-desktop" />
+  <DesktopFilters />
+  <MobileFilters />
 </template>
 
 <script>
