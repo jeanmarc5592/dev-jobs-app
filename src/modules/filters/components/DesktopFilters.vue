@@ -8,24 +8,25 @@
     </n-grid-item>
     <n-grid-item class="button-container">
       <FiltersCheckbox />
-      <n-button attr-type="submit" type="primary"> Search </n-button>
+      <FiltersSubmitButton />
     </n-grid-item>
   </FilterContainer>
 </template>
 
 <script>
-import { NButton, NGridItem } from "naive-ui";
+import { NGridItem } from "naive-ui";
 import FilterContainer from "./FilterContainer.vue";
 import TextInput from "./FiltersTextInput.vue";
 import FiltersCheckbox from "./FiltersCheckbox.vue";
+import FiltersSubmitButton from "./FiltersSubmitButton.vue";
 
 export default {
   components: {
-    NButton,
     NGridItem,
     TextInput,
     FilterContainer,
     FiltersCheckbox,
+    FiltersSubmitButton,
   },
 };
 </script>
