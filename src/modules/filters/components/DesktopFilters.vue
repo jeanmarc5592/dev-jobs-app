@@ -1,62 +1,58 @@
 <template>
-  <form @submit.prevent="filterJobs">
-    <n-grid class="filter-container" cols="3" :style="containerInlineStyles">
-      <n-grid-item>
-        <n-input
-          :value="search"
-          @input="updateSearch"
-          class="filter-input"
-          type="text"
-          placeholder="Filter by title, companies, expertise..."
-          clearable
-        >
-          <template #prefix>
-            <BaseSearchIcon />
-          </template>
-        </n-input>
-      </n-grid-item>
-      <n-grid-item>
-        <n-input
-          :value="location"
-          @input="updateLocation"
-          class="filter-input"
-          type="text"
-          placeholder="Filter by location..."
-          clearable
-        >
-          <template #prefix>
-            <BaseLocationIcon />
-          </template>
-        </n-input>
-      </n-grid-item>
-      <n-grid-item class="button-container">
-        <n-checkbox
-          :checked="fullTimeOnly"
-          @update-checked="updateFullTimeOnly"
-        >
-          Full Time Only
-        </n-checkbox>
-        <n-button attr-type="submit" type="primary"> Search </n-button>
-      </n-grid-item>
-    </n-grid>
-  </form>
+  <FilterContainer>
+    <n-grid-item>
+      <n-input
+        :value="search"
+        @input="updateSearch"
+        class="filter-input"
+        type="text"
+        placeholder="Filter by title, companies, expertise..."
+        clearable
+      >
+        <template #prefix>
+          <BaseSearchIcon />
+        </template>
+      </n-input>
+    </n-grid-item>
+    <n-grid-item>
+      <n-input
+        :value="location"
+        @input="updateLocation"
+        class="filter-input"
+        type="text"
+        placeholder="Filter by location..."
+        clearable
+      >
+        <template #prefix>
+          <BaseLocationIcon />
+        </template>
+      </n-input>
+    </n-grid-item>
+    <n-grid-item class="button-container">
+      <n-checkbox :checked="fullTimeOnly" @update-checked="updateFullTimeOnly">
+        Full Time Only
+      </n-checkbox>
+      <n-button attr-type="submit" type="primary"> Search </n-button>
+    </n-grid-item>
+  </FilterContainer>
 </template>
 
 <script>
-import { NInput, NCheckbox, NButton, NGrid, NGridItem } from "naive-ui";
+import { NInput, NCheckbox, NButton, NGridItem } from "naive-ui";
 import { mapState } from "vuex";
 import BaseSearchIcon from "../../../common/components/BaseSearchIcon.vue";
 import BaseLocationIcon from "../../../common/components/BaseLocationIcon.vue";
+import FilterContainer from "./FilterContainer.vue";
 
 export default {
   components: {
     NInput,
     NButton,
     NCheckbox,
-    NGrid,
     NGridItem,
     BaseSearchIcon,
     BaseLocationIcon,
+    FilterContainer,
   },
   data() {
     return {
@@ -69,19 +65,6 @@ export default {
       location: (state) => state.jobs.filters.location,
       fullTimeOnly: (state) => state.jobs.filters.fullTimeOnly,
     }),
-    containerInlineStyles() {
-      const { currentThemeMode } = this.$store.getters;
-      if (currentThemeMode === "light") {
-        return {
-          backgroundColor: "#fff",
-          transition: "all 0.3s",
-        };
-      }
-      return {
-        backgroundColor: "#19202D",
-        transition: "all 0.3s",
-      };
-    },
   },
   methods: {
     updateSearch(value) {
@@ -93,38 +76,22 @@ export default {
     updateFullTimeOnly(value) {
       this.$store.commit("updateFilters", { fullTimeOnly: value });
     },
-    async filterJobs() {
-      try {
-        this.$store.commit("resetCurrentPage");
-        await this.$store.dispatch("loadJobsFromAPI", {
-          shouldOverwrite: true,
-        });
-      } catch (error) {
-        this.$store.dispatch("addGenericLoadingError");
-        console.error(error);
-      }
-    },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.filter-container {
-  border-radius: 6px;
-  width: 100%;
+.filter-input {
+  border-right: 1px solid rgba(#19202d, 0.15);
+}
 
-  .filter-input {
-    border-right: 1px solid rgba(#19202d, 0.15);
-  }
+.button-container {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
 
-  .button-container {
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-
-    button {
-      margin-left: auto;
-    }
+  button {
+    margin-left: auto;
   }
 }
 </style>
