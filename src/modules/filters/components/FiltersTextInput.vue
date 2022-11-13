@@ -10,7 +10,7 @@
     clearable
   >
     <template #prefix>
-      <BaseSearchIcon class="icon" />
+      <BaseSearchIcon v-if="hasIcon" class="icon" />
     </template>
   </n-input>
   <!-- LOCATION -->
@@ -24,7 +24,7 @@
     clearable
   >
     <template #prefix>
-      <BaseLocationIcon class="icon" />
+      <BaseLocationIcon v-if="hasIcon" class="icon" />
     </template>
   </n-input>
 </template>
@@ -45,6 +45,10 @@ export default {
     inputType: {
       type: String,
       required: true,
+    },
+    hasIcon: {
+      type: Boolean,
+      default: true,
     },
   },
   computed: {

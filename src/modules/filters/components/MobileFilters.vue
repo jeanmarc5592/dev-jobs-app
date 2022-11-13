@@ -1,7 +1,7 @@
 <template>
   <FilterContainer>
     <n-grid-item>
-      <FiltersTextInput inputType="search" />
+      <FiltersTextInput :hasIcon="false" inputType="search" />
     </n-grid-item>
     <n-grid-item>
       <n-button>
