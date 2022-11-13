@@ -37,6 +37,12 @@ export default {
           infoColorPressed: "#EEEEFC",
         },
         Button: {
+          // DEFAULT
+          border: "none",
+          borderHover: "none",
+          borderPressed: "none",
+          borderFocus: "none",
+          // PRIMARY
           colorFocusPrimary: "#5964E0",
           borderFocusPrimary: "1px solid transparent",
           // INFO
@@ -96,6 +102,12 @@ export default {
           infoColorPressed: "#313642",
         },
         Button: {
+          // DEFAULT
+          border: "none",
+          borderHover: "none",
+          borderPressed: "none",
+          borderFocus: "none",
+          // PRIMARY
           textColorPrimary: "#FFF",
           textColorHoverPrimary: "#FFF",
           textColorPressedPrimary: "#FFF",
