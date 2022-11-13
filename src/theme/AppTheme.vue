@@ -87,6 +87,9 @@ export default {
         Checkbox: {
           textColor: "#19202D",
         },
+        Card: {
+          paddingSmall: "0px",
+        },
       };
     },
     darkThemeOverrides() {
@@ -156,6 +159,9 @@ export default {
         },
         Checkbox: {
           textColor: "#FFF",
+        },
+        Card: {
+          paddingSmall: "0px",
         },
       };
     },
