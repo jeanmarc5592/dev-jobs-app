@@ -1,7 +1,7 @@
 <template>
   <page-layout>
     <template #header>
-      <TheJobFilters />
+      <JobFilters />
     </template>
     <n-grid
       v-if="jobGridIsRendered"
@@ -34,7 +34,7 @@
 import { mapGetters } from "vuex";
 import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
-import TheJobFilters from "../common/components/TheJobFilters.vue";
+import JobFilters from "../modules/filters/components/JobFilters.vue";
 import JobCard from "../modules/job/components/JobCard.vue";
 import NoJobs from "../modules/job/components/NoJobs.vue";
 
@@ -46,7 +46,7 @@ export default {
     NSpace,
     NAlert,
     PageLayout,
-    TheJobFilters,
+    JobFilters,
     JobCard,
     NoJobs,
   },

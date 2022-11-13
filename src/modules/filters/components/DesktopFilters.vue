@@ -45,8 +45,8 @@
 <script>
 import { NInput, NCheckbox, NButton, NGrid, NGridItem } from "naive-ui";
 import { mapState } from "vuex";
-import BaseSearchIcon from "./BaseSearchIcon.vue";
-import BaseLocationIcon from "./BaseLocationIcon.vue";
+import BaseSearchIcon from "../../../common/components/BaseSearchIcon.vue";
+import BaseLocationIcon from "../../../common/components/BaseLocationIcon.vue";
 
 export default {
   components: {
