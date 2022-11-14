@@ -50,12 +50,6 @@ export default {
     JobCard,
     NoJobs,
   },
-  beforeRouteLeave(to, from) {
-    // Reset "currentPage" when leaving the page
-    if (to.fullPath !== from.fullPath) {
-      this.resetCurrentPage();
-    }
-  },
   computed: {
     ...mapGetters([
       "error",
@@ -74,7 +68,9 @@ export default {
     },
   },
   created() {
-    this.loadJobs();
+    if (this.firstLoading) {
+      this.loadJobs();
+    }
   },
   methods: {
     ...mapMutations(["resetCurrentPage"]),
