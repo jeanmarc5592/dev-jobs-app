@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -18,20 +18,24 @@ export default {
       this.resetCurrentJobDetails();
     }
   },
-  async created() {
-    const jobId = this.$route.params?.jobId || "";
-    if (!jobId) {
-      return;
-    }
-    try {
-      await this.$store.dispatch("loadJobDetailsFromAPI", { jobId });
-    } catch (error) {
-      this.$store.dispatch("addGenericLoadingError");
-      console.error(error);
-    }
+  created() {
+    this.loadJobDetails();
   },
   methods: {
     ...mapMutations(["resetCurrentJobDetails"]),
+    ...mapActions(["loadJobDetailsFromAPI", "addGenericLoadingError"]),
+    async loadJobDetails() {
+      const jobId = this.$route.params?.jobId || "";
+      if (!jobId) {
+        return;
+      }
+      try {
+        await this.loadJobDetailsFromAPI({ jobId });
+      } catch (error) {
+        this.addGenericLoadingError();
+        console.error(error);
+      }
+    },
   },
 };
 </script>

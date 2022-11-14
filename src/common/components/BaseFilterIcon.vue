@@ -9,11 +9,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   computed: {
+    ...mapGetters(["currentThemeMode"]),
     fillColor() {
-      const { currentThemeMode } = this.$store.getters;
-      if (currentThemeMode === "light") {
+      if (this.currentThemeMode === "light") {
         return "#6E8098";
       }
       return "#FFF";

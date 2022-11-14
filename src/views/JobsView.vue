@@ -10,7 +10,7 @@
       :x-gap="30"
       :y-gap="65"
     >
-      <n-grid-item v-for="job in this.$store.getters.jobsList" :key="job.id">
+      <n-grid-item v-for="job in jobsList" :key="job.id">
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import JobFilters from "../modules/filters/components/JobFilters.vue";
@@ -50,11 +50,20 @@ export default {
     JobCard,
     NoJobs,
   },
+  beforeRouteLeave(to, from) {
+    // Reset "currentPage" when leaving the page
+    if (to.fullPath !== from.fullPath) {
+      this.resetCurrentPage();
+    }
+  },
   computed: {
-    ...mapGetters(["error", "jobsListLength", "hasNextPage", "firstLoading"]),
-    error() {
-      return this.$store.getters.error;
-    },
+    ...mapGetters([
+      "error",
+      "jobsListLength",
+      "hasNextPage",
+      "firstLoading",
+      "jobsList",
+    ]),
     jobGridIsRendered() {
       return !this.error.hasError && this.jobsListLength > 0;
     },
@@ -64,15 +73,17 @@ export default {
       );
     },
   },
-  mounted() {
+  created() {
     this.loadJobs();
   },
   methods: {
+    ...mapMutations(["resetCurrentPage"]),
+    ...mapActions(["loadJobsFromAPI", "addGenericLoadingError"]),
     async loadJobs() {
       try {
-        await this.$store.dispatch("loadJobsFromAPI");
+        await this.loadJobsFromAPI();
       } catch (error) {
-        this.$store.dispatch("addGenericLoadingError");
+        this.addGenericLoadingError();
         console.error(error);
       }
     },

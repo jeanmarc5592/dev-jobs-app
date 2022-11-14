@@ -7,7 +7,7 @@
         <n-space>
           <BaseSunIcon />
           <n-switch
-            :value="this.$store.getters.currentThemeMode"
+            :value="currentThemeMode"
             checked-value="dark"
             unchecked-value="light"
             @update:value="updateThemeMode"
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import { NSpace, NSwitch } from "naive-ui";
 import BaseLogoIcon from "./BaseLogoIcon.vue";
 import BaseSunIcon from "./BaseSunIcon.vue";
@@ -35,9 +36,13 @@ export default {
     BaseSunIcon,
     BaseMoonIcon,
   },
+  computed: {
+    ...mapGetters(["currentThemeMode"]),
+  },
   methods: {
+    ...mapMutations(["changeThemeMode"]),
     updateThemeMode(newMode) {
-      this.$store.commit("changeThemeMode", { newMode });
+      this.changeThemeMode({ newMode });
     },
   },
 };

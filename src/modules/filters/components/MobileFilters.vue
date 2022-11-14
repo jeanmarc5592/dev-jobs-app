@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from "vuex";
 import { NGridItem, NButton, NModal, NCard, NSpace } from "naive-ui";
 import FilterContainer from "./FilterContainer.vue";
 import FiltersTextInput from "./FiltersTextInput.vue";
@@ -63,18 +64,18 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["resetCurrentPage"]),
+    ...mapActions(["loadJobsFromAPI", "addGenericLoadingError"]),
     toggleModal() {
       this.modalIsOpen = !this.modalIsOpen;
     },
     async modalSubmit() {
       try {
-        this.$store.commit("resetCurrentPage");
-        await this.$store.dispatch("loadJobsFromAPI", {
-          shouldOverwrite: true,
-        });
+        this.resetCurrentPage();
+        await this.loadJobsFromAPI({ shouldOverwrite: true });
         this.toggleModal();
       } catch (error) {
-        this.$store.dispatch("addGenericLoadingError");
+        this.addGenericLoadingError();
         console.error(error);
         this.toggleModal();
       }

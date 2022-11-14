@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { NConfigProvider, darkTheme } from "naive-ui";
 
 export default {
@@ -15,9 +16,9 @@ export default {
     NConfigProvider,
   },
   computed: {
+    ...mapGetters(["currentThemeMode"]),
     theme() {
-      const { currentThemeMode } = this.$store.getters;
-      if (currentThemeMode === "light") {
+      if (this.currentThemeMode === "light") {
         document.body.style.backgroundColor = "#F2F2F2";
         return null;
       }

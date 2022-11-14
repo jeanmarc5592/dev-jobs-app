@@ -12,14 +12,15 @@
 </template>
 
 <script>
+import { mapGetters, mapActions, mapMutations } from "vuex";
 import { NGrid } from "naive-ui";
 
 export default {
   components: { NGrid },
   computed: {
+    ...mapGetters(["currentThemeMode"]),
     containerInlineStyles() {
-      const { currentThemeMode } = this.$store.getters;
-      if (currentThemeMode === "light") {
+      if (this.currentThemeMode === "light") {
         return {
           backgroundColor: "#fff",
           transition: "all 0.3s",
@@ -32,14 +33,14 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["resetCurrentPage"]),
+    ...mapActions(["loadJobsFromAPI", "addGenericLoadingError"]),
     async filterJobs() {
       try {
-        this.$store.commit("resetCurrentPage");
-        await this.$store.dispatch("loadJobsFromAPI", {
-          shouldOverwrite: true,
-        });
+        this.resetCurrentPage();
+        await this.loadJobsFromAPI({ shouldOverwrite: true });
       } catch (error) {
-        this.$store.dispatch("addGenericLoadingError");
+        this.addGenericLoadingError();
         console.error(error);
       }
     },

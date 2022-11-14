@@ -20,6 +20,7 @@
 
 <script>
 import { NP, NH3, NImage } from "naive-ui";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -62,9 +63,9 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["currentThemeMode"]),
     containerInlineStyles() {
-      const { currentThemeMode } = this.$store.getters;
-      if (currentThemeMode === "light") {
+      if (this.currentThemeMode === "light") {
         return {
           backgroundColor: "#fff",
           transition: "all 0.3s",
