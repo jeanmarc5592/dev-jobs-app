@@ -1,5 +1,9 @@
 <template>
-  <div :style="containerInlineStyles" class="card-container">
+  <div
+    @click="routeToDetailPage"
+    :style="containerInlineStyles"
+    class="card-container"
+  >
     <div :style="logoInlineStyles" class="logo-container">
       <n-image :src="logo.url" />
     </div>
@@ -93,6 +97,11 @@ export default {
             return rawContract;
         }
       };
+    },
+  },
+  methods: {
+    routeToDetailPage() {
+      this.$router.push(`/jobs/${this.id}`);
     },
   },
 };
