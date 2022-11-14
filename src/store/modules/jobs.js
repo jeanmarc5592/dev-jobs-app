@@ -1,5 +1,5 @@
 import gqlRequest from "../../graphql/request";
-import { GET_JOBS } from "../../graphql/queries";
+import { GET_JOBS, GET_JOB_BY_ID } from "../../graphql/queries";
 
 const jobsModule = {
   state() {
@@ -9,6 +9,7 @@ const jobsModule = {
         location: "",
         fullTimeOnly: false,
       },
+      currentJobDetails: null,
       list: {
         currentPage: 0,
         items_per_page: 6,
@@ -63,6 +64,12 @@ const jobsModule = {
     resetFirstLoading(state) {
       state.list.firstLoading = false;
     },
+    addCurrentJobDetails(state, payload) {
+      state.currentJobDetails = payload;
+    },
+    resetCurrentJobDetails(state) {
+      state.currentJobDetails = null;
+    },
   },
   getters: {
     jobFilters(state) {
@@ -82,6 +89,9 @@ const jobsModule = {
     },
     firstLoading(state) {
       return state.list.firstLoading;
+    },
+    currentJobDetails(state) {
+      return state.currentJobDetails;
     },
   },
   actions: {
@@ -132,9 +142,23 @@ const jobsModule = {
       const errorMsg = {
         hasError: true,
         title: "Oops... Something went wrong",
-        description: "We couldn't get your jobs. Please try again!",
+        description: "We couldn't find any data. Please try again!",
       };
       commit("addError", errorMsg);
+    },
+    async loadJobDetailsFromAPI({ commit }, payload) {
+      try {
+        const response = await gqlRequest({
+          query: GET_JOB_BY_ID,
+          variables: {
+            jobId: payload.jobId,
+          },
+        });
+        const job = response?.job || {};
+        commit("addCurrentJobDetails", job);
+      } catch (error) {
+        throw new Error(error);
+      }
     },
   },
 };

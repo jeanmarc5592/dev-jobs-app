@@ -44,3 +44,25 @@ export const GET_JOBS = gql`
     }
   }
 `;
+
+export const GET_JOB_BY_ID = gql`
+  query getJobById($jobId: ID!) {
+    job(where: { id: $jobId }) {
+      apply
+      company
+      contract
+      createdAt
+      description
+      id
+      location
+      logo {
+        url
+      }
+      logoBackground
+      position
+      requirements
+      role
+      website
+    }
+  }
+`;
