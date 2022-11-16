@@ -1,6 +1,6 @@
 <template>
   <header class="header-container">
-    <div class="inner-container">
+    <div :style="headerInnerStyles" class="inner-container">
       <!-- LOGO & SWITCH -->
       <n-space class="inner-top-container" justify="space-between">
         <BaseLogoIcon />
@@ -29,6 +29,11 @@ import BaseSunIcon from "./BaseSunIcon.vue";
 import BaseMoonIcon from "./BaseMoonIcon.vue";
 
 export default {
+  props: {
+    headerInnerStyles: {
+      type: Object,
+    },
+  },
   components: {
     NSpace,
     NSwitch,

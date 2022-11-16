@@ -1,5 +1,5 @@
 <template>
-  <the-header>
+  <the-header :headerInnerStyles="headerInnerStyles">
     <slot name="header"></slot>
   </the-header>
   <main class="main-container">
@@ -14,6 +14,11 @@
 import TheHeader from "../common/components/TheHeader.vue";
 
 export default {
+  props: {
+    headerInnerStyles: {
+      type: Object,
+    },
+  },
   components: {
     TheHeader,
   },

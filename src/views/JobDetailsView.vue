@@ -1,16 +1,39 @@
 <template>
-  <main>
-    <h2>Hello From JobDetailsView</h2>
-    <p>{{ currentJobDetails?.company }}</p>
-  </main>
+  <page-layout :headerInnerStyles="headerInnerStyles">
+    <template #header>
+      <div class="company-container">
+        <div :style="logoContainerInlineStyles" class="logo-container">
+          <img
+            class="logo"
+            :src="currentJobDetails && currentJobDetails.logo.url"
+          />
+        </div>
+      </div>
+    </template>
+  </page-layout>
 </template>
 
 <script>
+import PageLayout from "../layouts/PageLayout.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
+  components: {
+    PageLayout,
+  },
   computed: {
     ...mapGetters(["currentJobDetails"]),
+    logoContainerInlineStyles() {
+      if (!this.currentJobDetails) return;
+      return {
+        backgroundColor: this.currentJobDetails.logoBackground,
+      };
+    },
+    headerInnerStyles() {
+      return {
+        top: "100%",
+      };
+    },
   },
   beforeRouteLeave(to, from) {
     // Reset "currentJobDetails" when leaving the page
@@ -39,3 +62,20 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.company-container {
+  .logo-container {
+    height: 140px;
+    width: 140px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .logo {
+      width: 60px;
+    }
+  }
+}
+</style>
