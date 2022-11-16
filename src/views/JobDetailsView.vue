@@ -16,9 +16,25 @@ export default {
     PageLayout,
     JobDetailCompany,
   },
+  data() {
+    return {
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+    };
+  },
   computed: {
-    ...mapGetters(["currentJobDetails", "currentThemeMode"]),
+    ...mapGetters([
+      "currentJobDetails",
+      "currentThemeMode",
+      "currentScreenDimensions",
+    ]),
     headerInnerStyles() {
+      const { width } = this.currentScreenDimensions;
+      if (width <= 768) {
+        return {
+          top: "130%",
+        };
+      }
       return {
         top: "100%",
       };
