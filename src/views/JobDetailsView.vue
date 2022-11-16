@@ -8,6 +8,13 @@
             :src="currentJobDetails && currentJobDetails.logo.url"
           />
         </div>
+        <div class="details-container">
+          <div>
+            <n-h2>{{ currentJobDetails && currentJobDetails.company }}</n-h2>
+            <n-p>{{ currentJobDetails && currentJobDetails.website }}</n-p>
+          </div>
+          <n-button type="info">Company Site</n-button>
+        </div>
       </div>
     </template>
   </page-layout>
@@ -16,9 +23,13 @@
 <script>
 import PageLayout from "../layouts/PageLayout.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
+import { NH2, NP, NButton } from "naive-ui";
 
 export default {
   components: {
+    NH2,
+    NP,
+    NButton,
     PageLayout,
   },
   computed: {
@@ -77,6 +88,7 @@ export default {
 
 <style scoped lang="scss">
 .company-container {
+  display: flex;
   border-radius: 6px;
   .logo-container {
     height: 140px;
@@ -90,6 +102,22 @@ export default {
 
     .logo {
       width: 60px;
+    }
+  }
+
+  .details-container {
+    width: 100%;
+    padding: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-weight: 700;
+    }
+
+    p {
+      color: #6e8098;
     }
   }
 }
