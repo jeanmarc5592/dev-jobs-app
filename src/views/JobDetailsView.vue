@@ -1,7 +1,7 @@
 <template>
   <page-layout :headerInnerStyles="headerInnerStyles">
     <template #header>
-      <div class="company-container">
+      <div :style="companyContainerInlineStyles" class="company-container">
         <div :style="logoContainerInlineStyles" class="logo-container">
           <img
             class="logo"
@@ -22,7 +22,19 @@ export default {
     PageLayout,
   },
   computed: {
-    ...mapGetters(["currentJobDetails"]),
+    ...mapGetters(["currentJobDetails", "currentThemeMode"]),
+    companyContainerInlineStyles() {
+      if (this.currentThemeMode === "light") {
+        return {
+          backgroundColor: "#fff",
+          transition: "all 0.3s",
+        };
+      }
+      return {
+        backgroundColor: "#19202D",
+        transition: "all 0.3s",
+      };
+    },
     logoContainerInlineStyles() {
       if (!this.currentJobDetails) return;
       return {
@@ -65,10 +77,13 @@ export default {
 
 <style scoped lang="scss">
 .company-container {
+  border-radius: 6px;
   .logo-container {
     height: 140px;
     width: 140px;
     border-radius: 6px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
