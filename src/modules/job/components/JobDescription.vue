@@ -15,18 +15,43 @@
       </div>
       <n-button type="primary">Apply Now</n-button>
     </div>
+    <!-- Description -->
+    <n-p class="description">{{
+      currentJobDetails && currentJobDetails.requirements?.content
+    }}</n-p>
+    <!-- Requirements -->
+    <n-h3 class="sub-header">Requirements</n-h3>
+    <n-p
+      class="list-item"
+      v-for="(requirement, index) in currentJobDetails?.requirements?.items"
+      :key="index"
+    >
+      <span class="list-icon">&#8226;</span>
+      <span class="description">{{ requirement }}</span>
+    </n-p>
+    <!-- Role -->
+    <n-h3 class="sub-header">What you will do</n-h3>
+    <n-p
+      class="list-item"
+      v-for="(role, index) in currentJobDetails?.role?.items"
+      :key="index"
+    >
+      <span class="list-icon">{{ index + 1 }}</span>
+      <span class="description">{{ role }}</span>
+    </n-p>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { NP, NH1, NButton } from "naive-ui";
+import { NP, NH1, NH3, NButton } from "naive-ui";
 import JobCardMetaData from "./JobCardMetaData.vue";
 
 export default {
   components: {
     NP,
     NH1,
+    NH3,
     NButton,
     JobCardMetaData,
   },
@@ -58,11 +83,33 @@ export default {
     margin-top: 132px;
   }
 
+  .list-item {
+    display: flex;
+    width: 100%;
+    margin-bottom: 8px;
+    .list-icon {
+      color: #5964e0;
+      font-weight: 600;
+      margin-right: 32px;
+    }
+  }
+
+  .description {
+    color: #6e8098;
+  }
+
+  .sub-header {
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 28px;
+  }
+
   .top-container {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 40px;
     .position {
       font-weight: 600;
     }
