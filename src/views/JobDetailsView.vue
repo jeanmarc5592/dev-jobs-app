@@ -3,18 +3,21 @@
     <template #header>
       <JobDetailCompany />
     </template>
+    <JobDescription />
   </page-layout>
 </template>
 
 <script>
 import PageLayout from "../layouts/PageLayout.vue";
 import JobDetailCompany from "../modules/job/components/JobDetailCompany.vue";
+import JobDescription from "../modules/job/components/JobDescription.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   components: {
     PageLayout,
     JobDetailCompany,
+    JobDescription,
   },
   data() {
     return {
