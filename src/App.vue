@@ -14,12 +14,19 @@ export default {
   },
   mounted() {
     window.addEventListener("resize", this.updateDimensions);
+    if (window.matchMedia) {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        this.changeThemeMode({ newMode: "dark" });
+      } else {
+        this.changeThemeMode({ newMode: "light" });
+      }
+    }
   },
   unmounted() {
     window.removeEventListener("resize", this.updateDimensions);
   },
   methods: {
-    ...mapMutations(["updateDimensions"]),
+    ...mapMutations(["updateDimensions", "changeThemeMode"]),
   },
 };
 </script>
