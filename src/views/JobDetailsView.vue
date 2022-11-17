@@ -1,9 +1,9 @@
 <template>
   <page-layout :headerInnerStyles="headerInnerStyles">
     <template #header>
-      <JobDetailCompany />
+      <JobDetailCompany v-show="currentJobDetails" />
     </template>
-    <JobDescription />
+    <JobDescription v-show="currentJobDetails" />
   </page-layout>
 </template>
 

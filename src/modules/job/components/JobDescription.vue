@@ -1,13 +1,24 @@
 <template>
   <div :style="mainContainerInlineStyles" class="main-container">
-    <h2>Job Description</h2>
+    <div>
+      <div>
+        <JobCardMetaData
+          :contract="currentJobDetails && currentJobDetails.contract"
+          :createdAt="currentJobDetails && currentJobDetails.createdAt"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import JobCardMetaData from "./JobCardMetaData.vue";
 
 export default {
+  components: {
+    JobCardMetaData,
+  },
   computed: {
     ...mapGetters(["currentJobDetails", "currentThemeMode"]),
     mainContainerInlineStyles() {

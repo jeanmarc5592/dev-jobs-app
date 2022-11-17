@@ -7,11 +7,11 @@
     <div :style="logoInlineStyles" class="logo-container">
       <n-image :src="logo.url" />
     </div>
-    <div class="meta-data-container">
-      <n-p>{{ transformCreatedAt(createdAt) }}</n-p>
-      <n-p>&#8226;</n-p>
-      <n-p>{{ transformContract(contract) }}</n-p>
-    </div>
+    <JobCardMetaData
+      :containerStyles="metaDataInlineStyles"
+      :contract="contract"
+      :createdAt="createdAt"
+    />
     <n-h3 class="position">{{ position }}</n-h3>
     <n-p class="company">{{ company }}</n-p>
     <n-p class="location">{{ location }}</n-p>
@@ -21,12 +21,14 @@
 <script>
 import { NP, NH3, NImage } from "naive-ui";
 import { mapGetters } from "vuex";
+import JobCardMetaData from "./JobCardMetaData.vue";
 
 export default {
   components: {
     NP,
     NH3,
     NImage,
+    JobCardMetaData,
   },
   props: {
     id: {
@@ -81,22 +83,9 @@ export default {
         "background-color": `${this.logoBackground}`,
       };
     },
-    transformCreatedAt() {
-      // TODO: Optimize Date Display (e.g. "4d ago")
-      return (rawDate) => new Date(rawDate).toLocaleDateString();
-    },
-    transformContract() {
-      return (rawContract) => {
-        switch (rawContract) {
-          case "part_time":
-            return "Part Time";
-          case "full_time":
-            return "Full Time";
-          case "freelance":
-            return "Freelance";
-          default:
-            return rawContract;
-        }
+    metaDataInlineStyles() {
+      return {
+        "margin-top": "24px",
       };
     },
   },
@@ -133,24 +122,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
-.meta-data-container {
-  display: flex;
-  align-items: center;
-  margin-top: 24px;
-
-  p {
-    color: #6e8098;
-
-    &:first-of-type {
-      margin-right: 8px;
-    }
-    &:last-of-type {
-      margin-left: 8px;
-    }
-  }
-}
-
 .position {
   font-weight: 600;
   margin: 16px 0;
