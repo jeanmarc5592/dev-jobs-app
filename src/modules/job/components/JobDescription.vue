@@ -76,12 +76,14 @@ export default {
 <style scoped lang="scss">
 .main-container {
   margin-top: 214px;
+  margin-bottom: 64px;
   border-radius: 6px;
   padding: 24px;
 
   @media only screen and (min-width: 768px) {
     padding: 48px;
     margin-top: 132px;
+    margin-bottom: 80px;
   }
 
   .list-item {
