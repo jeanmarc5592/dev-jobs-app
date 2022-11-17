@@ -4,6 +4,9 @@
       <JobDetailCompany v-show="currentJobDetails" />
     </template>
     <JobDescription v-show="currentJobDetails" />
+    <template #footer>
+      <JobDetailsFooter />
+    </template>
   </page-layout>
 </template>
 
@@ -11,6 +14,7 @@
 import PageLayout from "../layouts/PageLayout.vue";
 import JobDetailCompany from "../modules/job/components/JobDetailCompany.vue";
 import JobDescription from "../modules/job/components/JobDescription.vue";
+import JobDetailsFooter from "../modules/job/components/JobDetailsFooter.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
@@ -18,6 +22,7 @@ export default {
     PageLayout,
     JobDetailCompany,
     JobDescription,
+    JobDetailsFooter,
   },
   data() {
     return {
