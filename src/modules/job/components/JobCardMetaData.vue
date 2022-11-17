@@ -12,11 +12,12 @@ import { NP } from "naive-ui";
 export default {
   props: {
     createdAt: {
-      type: String,
+      type: [String, null],
       required: true,
+      default: "",
     },
     contract: {
-      type: String,
+      type: [String, null],
       required: true,
     },
     containerStyles: {
