@@ -1,34 +1,45 @@
 <template>
-  <page-layout :headerInnerStyles="headerInnerStyles">
-    <template #header>
-      <JobDetailCompany v-show="currentJobDetails" />
-    </template>
-    <JobDescription v-show="currentJobDetails" />
-    <template #footer>
-      <JobDetailsFooter />
-    </template>
-  </page-layout>
+  <div v-if="currentJobDetails !== null">
+    <page-layout :headerInnerStyles="headerInnerStyles">
+      <template #header>
+        <JobDetailCompany />
+      </template>
+      <JobDescription />
+      <template #footer>
+        <JobDetailsFooter />
+      </template>
+    </page-layout>
+  </div>
+  <div v-else>
+    <page-layout>
+      <NoJobData
+        title="We couldn't find the data of your job..."
+        description="Please refresh the page or return to the jobs overview"
+      />
+      <n-button @click="routeToOverview" type="primary">
+        Back To Overview
+      </n-button>
+    </page-layout>
+  </div>
 </template>
 
 <script>
+import { NButton } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import JobDetailCompany from "../modules/job/components/JobDetailCompany.vue";
 import JobDescription from "../modules/job/components/JobDescription.vue";
 import JobDetailsFooter from "../modules/job/components/JobDetailsFooter.vue";
+import NoJobData from "../modules/job/components/NoJobData.vue";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   components: {
+    NButton,
     PageLayout,
     JobDetailCompany,
     JobDescription,
     JobDetailsFooter,
-  },
-  data() {
-    return {
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight,
-    };
+    NoJobData,
   },
   computed: {
     ...mapGetters([
@@ -71,6 +82,9 @@ export default {
         this.addGenericLoadingError();
         console.error(error);
       }
+    },
+    routeToOverview() {
+      this.$router.replace("/jobs");
     },
   },
 };

@@ -9,7 +9,7 @@ const jobsModule = {
         location: "",
         fullTimeOnly: false,
       },
-      currentJobDetails: null,
+      currentJobDetails: {},
       list: {
         currentPage: 0,
         items_per_page: 6,
@@ -68,7 +68,7 @@ const jobsModule = {
       state.currentJobDetails = payload;
     },
     resetCurrentJobDetails(state) {
-      state.currentJobDetails = null;
+      state.currentJobDetails = {};
     },
   },
   getters: {
@@ -154,7 +154,7 @@ const jobsModule = {
             jobId: payload.jobId,
           },
         });
-        const job = response?.job || {};
+        const job = response?.job;
         commit("addCurrentJobDetails", job);
       } catch (error) {
         throw new Error(error);

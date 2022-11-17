@@ -8,7 +8,7 @@
       <div :style="logoContainerInlineStyles" class="logo-container-desktop">
         <img
           class="logo-desktop"
-          :src="currentJobDetails && currentJobDetails.logo.url"
+          :src="currentJobDetails && currentJobDetails.logo?.url"
         />
       </div>
       <div class="details-container-desktop">
@@ -24,7 +24,7 @@
   <div class="mobile-view">
     <div :style="companyContainerInlineStyles" class="company-container-mobile">
       <div :style="logoContainerInlineStyles" class="logo-container-mobile">
-        <n-image :src="currentJobDetails && currentJobDetails.logo.url" />
+        <n-image :src="currentJobDetails && currentJobDetails.logo?.url" />
       </div>
       <div class="details-container-mobile">
         <n-h2>{{ currentJobDetails && currentJobDetails.company }}</n-h2>

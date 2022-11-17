@@ -23,3 +23,4 @@
 - 404 Page
 - "No Results" UI
 - Evaluation of light or dark mode based on preferred color scheme
+- Error Handling when data fetching went wrong

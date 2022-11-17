@@ -14,7 +14,11 @@
         <JobCard v-bind="job" />
       </n-grid-item>
     </n-grid>
-    <NoJobs v-else-if="!firstLoading" />
+    <NoJobData
+      title="We couldn't find any jobs..."
+      description="Adjust your filters to receive more jobs again!"
+      v-else-if="!firstLoading"
+    />
     <n-space
       v-if="loadMoreBtnIsRendered"
       class="button-container"
@@ -36,7 +40,7 @@ import { NGrid, NGridItem, NButton, NSpace, NAlert } from "naive-ui";
 import PageLayout from "../layouts/PageLayout.vue";
 import JobFilters from "../modules/filters/components/JobFilters.vue";
 import JobCard from "../modules/job/components/JobCard.vue";
-import NoJobs from "../modules/job/components/NoJobs.vue";
+import NoJobData from "../modules/job/components/NoJobData.vue";
 
 export default {
   components: {
@@ -48,7 +52,7 @@ export default {
     PageLayout,
     JobFilters,
     JobCard,
-    NoJobs,
+    NoJobData,
   },
   computed: {
     ...mapGetters([
