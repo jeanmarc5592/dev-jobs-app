@@ -77,9 +77,10 @@ export default {
 .main-container {
   margin-top: 214px;
   border-radius: 6px;
-  padding: 48px;
+  padding: 24px;
 
   @media only screen and (min-width: 768px) {
+    padding: 48px;
     margin-top: 132px;
   }
 
@@ -90,7 +91,11 @@ export default {
     .list-icon {
       color: #5964e0;
       font-weight: 600;
-      margin-right: 32px;
+      margin-right: 16px;
+
+      @media only screen and (min-width: 768px) {
+        margin-right: 32px;
+      }
     }
   }
 
@@ -106,10 +111,34 @@ export default {
 
   .top-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 40px;
+
+    button {
+      width: 100%;
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 20px;
+    }
+
+    @media only screen and (min-width: 376px) {
+      flex-direction: row;
+      align-items: center;
+
+      button {
+        width: unset;
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
     .position {
       font-weight: 600;
     }
