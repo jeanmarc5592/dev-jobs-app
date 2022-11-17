@@ -14,6 +14,7 @@
 - Setup and use Vue-Router
 - Setup and use Vuex
 - Using Layouts for better maintainability
+- How to add filter behaviour properly to graphql queries
 
 # Stuff I've added
 
@@ -21,3 +22,4 @@
 - Pagination
 - 404 Page
 - "No Results" UI
+- Evaluation of light or dark mode based on preferred color scheme
