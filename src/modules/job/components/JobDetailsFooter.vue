@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <div>
+    <div class="metadata-container">
       <n-h3>{{ currentJobDetails && currentJobDetails.position }}</n-h3>
       <n-p>{{ currentJobDetails && currentJobDetails.company }}</n-p>
     </div>
@@ -32,12 +32,28 @@ export default {
   justify-content: space-between;
   align-items: center;
 
+  .metadata-container {
+    display: none;
+
+    @media only screen and (min-width: 376px) {
+      display: block;
+    }
+  }
+
   h3 {
     font-weight: 600;
   }
 
   p {
     color: #6e8098;
+  }
+
+  button {
+    width: 100%;
+
+    @media only screen and (min-width: 376px) {
+      width: unset;
+    }
   }
 }
 </style>
