@@ -8,6 +8,7 @@
 
 <script>
 import { NP } from "naive-ui";
+import moment from "moment";
 
 export default {
   props: {
@@ -29,8 +30,11 @@ export default {
   },
   computed: {
     transformCreatedAt() {
-      // TODO: Optimize Date Display (e.g. "4d ago")
-      return (rawDate) => new Date(rawDate).toLocaleDateString();
+      return (rawDate) => {
+        if (rawDate) {
+          return moment(rawDate).fromNow();
+        }
+      };
     },
   },
 };
