@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [https://app.netlify.com/sites/devjobs-jean-marc/deploys](https://app.netlify.com/sites/devjobs-jean-marc/deploys)
+- Live Site URL: [https://devjobs-jean-marc.netlify.app/](https://devjobs-jean-marc.netlify.app/)
 
 ## My process
 
