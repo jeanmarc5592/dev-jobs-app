@@ -17,10 +17,13 @@
     </div>
     <!-- Description -->
     <n-p class="description">{{
-      currentJobDetails && currentJobDetails.requirements?.content
+      currentJobDetails && currentJobDetails.description
     }}</n-p>
     <!-- Requirements -->
     <n-h3 class="sub-header">Requirements</n-h3>
+    <n-p class="content description">{{
+      currentJobDetails && currentJobDetails.requirements?.content
+    }}</n-p>
     <n-p
       class="list-item"
       v-for="(requirement, index) in currentJobDetails?.requirements?.items"
@@ -31,6 +34,9 @@
     </n-p>
     <!-- Role -->
     <n-h3 class="sub-header">What you will do</n-h3>
+    <n-p class="content description">{{
+      currentJobDetails && currentJobDetails.role?.content
+    }}</n-p>
     <n-p
       class="list-item"
       v-for="(role, index) in currentJobDetails?.role?.items"
@@ -99,6 +105,11 @@ export default {
         margin-right: 32px;
       }
     }
+  }
+
+  .content {
+    margin-bottom: 16px;
+    color: #6e8098;
   }
 
   .description {
